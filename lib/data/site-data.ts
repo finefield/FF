@@ -20,6 +20,7 @@ export const navItems = [
       { label: "研究紹介", href: "/research" },
       { label: "論文・業績一覧", href: "/research/publications" },
       { label: "学会発表・メディア掲載", href: "/research/media" },
+      { label: "同門会", href: "/about/alumni" },
     ],
   },
   {
