@@ -134,56 +134,91 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="reveal-stagger mt-12 grid gap-6 md:grid-cols-2">
-            {/* 沿革カード */}
-            <Link
-              href="/about/history"
-              className="reveal-child group flex flex-col justify-between rounded-2xl border border-border bg-card p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal/10">
+          <div className="reveal-stagger mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                href: "/about/history",
+                icon: (
                   <svg className="h-6 w-6 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                   </svg>
-                </div>
-                <h3 className="mt-5 font-serif text-xl font-bold text-foreground">
-                  教室の沿革・ミッション
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-text-sub">
-                  1949年の内科学教室設立から現在まで、
-                  消化器内科学教室の歩みとミッションをご紹介します。
-                </p>
-              </div>
-              <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-gold transition-all group-hover:gap-3">
-                沿革を見る
-                <ArrowRight className="h-4 w-4" />
-              </span>
-            </Link>
-
-            {/* スタッフカード */}
-            <Link
-              href="/about/staff"
-              className="reveal-child group flex flex-col justify-between rounded-2xl border border-border bg-card p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10">
+                ),
+                iconBg: "bg-teal/10",
+                title: "教室の沿革",
+                desc: "1949年の内科学教室設立から現在まで、消化器内科学教室の歩みをご紹介します。",
+                cta: "沿革を見る",
+              },
+              {
+                href: "/about/staff",
+                icon: (
                   <svg className="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                   </svg>
+                ),
+                iconBg: "bg-gold/10",
+                title: "スタッフ紹介",
+                desc: "教授・准教授から大学院生まで、各分野のエキスパートが揃う教室メンバーを紹介します。",
+                cta: "スタッフを見る",
+              },
+              {
+                href: "/research",
+                icon: (
+                  <svg className="h-6 w-6 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714a2.25 2.25 0 0 0 .659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-1.341 4.023A2.25 2.25 0 0 1 15.523 20H8.477a2.25 2.25 0 0 1-2.136-1.477L5 14.5m14 0H5" />
+                  </svg>
+                ),
+                iconBg: "bg-navy/10",
+                title: "研究紹介",
+                desc: "消化管・肝臓・胆膵の3グループを中心とした研究テーマと最新の成果をご紹介します。",
+                cta: "研究を見る",
+              },
+              {
+                href: "/research/publications",
+                icon: (
+                  <svg className="h-6 w-6 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                  </svg>
+                ),
+                iconBg: "bg-teal/10",
+                title: "論文・業績一覧",
+                desc: "国内外の主要ジャーナルに掲載された論文、著書などの業績一覧です。",
+                cta: "業績を見る",
+              },
+              {
+                href: "/research/media",
+                icon: (
+                  <svg className="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+                  </svg>
+                ),
+                iconBg: "bg-gold/10",
+                title: "学会発表・メディア掲載",
+                desc: "国内・国際学会での発表実績や、新聞・テレビなどのメディア掲載情報です。",
+                cta: "発表を見る",
+              },
+            ].map((card) => (
+              <Link
+                key={card.href}
+                href={card.href}
+                className="reveal-child group flex flex-col justify-between rounded-2xl border border-border bg-card p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div>
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${card.iconBg}`}>
+                    {card.icon}
+                  </div>
+                  <h3 className="mt-5 font-serif text-lg font-bold text-foreground">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-text-sub">
+                    {card.desc}
+                  </p>
                 </div>
-                <h3 className="mt-5 font-serif text-xl font-bold text-foreground">
-                  スタッフ紹介
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-text-sub">
-                  教授・准教授から大学院生まで、
-                  各分野のエキスパートが揃う教室のメンバーを紹介します。
-                </p>
-              </div>
-              <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-gold transition-all group-hover:gap-3">
-                スタッフを見る
-                <ArrowRight className="h-4 w-4" />
-              </span>
-            </Link>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-gold transition-all group-hover:gap-3">
+                  {card.cta}
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
