@@ -13,22 +13,17 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative flex min-h-[90vh] items-center bg-[#0C2340] overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-[0.04]">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
-
-      {/* Accent glow */}
-      <div className="absolute -top-40 right-0 h-96 w-96 rounded-full bg-[#147A85]/10 blur-3xl" />
-      <div className="absolute -bottom-32 left-0 h-80 w-80 rounded-full bg-[#C4923A]/10 blur-3xl" />
+    <section className="relative flex min-h-[90vh] items-center overflow-hidden">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/hero-mainvisual.jpg')",
+        }}
+      />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0C2340]/90 via-[#0C2340]/70 to-transparent" />
+      <div className="absolute inset-0 bg-[#0C2340]/30" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 lg:px-8">
         <div className="max-w-3xl">
