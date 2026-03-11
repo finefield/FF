@@ -21,9 +21,8 @@ export function HeroSection() {
           backgroundImage: "url('/images/hero-mainvisual.jpg')",
         }}
       />
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0C2340]/90 via-[#0C2340]/70 to-transparent" />
-      <div className="absolute inset-0 bg-[#0C2340]/30" />
+      {/* Light overlay for text readability - keeping original image colors */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0C2340]/60 via-[#0C2340]/30 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 lg:px-8">
         <div className="max-w-3xl">
