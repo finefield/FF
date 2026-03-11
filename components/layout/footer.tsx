@@ -54,11 +54,10 @@ export function Footer() {
 
           {/* Column 4: 研究・実績 */}
           <div>
-            <p className="mb-4 text-sm font-bold text-[#C4923A]">研究・実績</p>
+            <p className="mb-4 text-sm font-bold text-[#C4923A]">診療・研究</p>
             <ul className="flex flex-col gap-2.5 text-sm text-white/60">
-              <li><Link href="/research" className="transition-colors hover:text-white">研究紹介</Link></li>
+              <li><Link href="/research" className="transition-colors hover:text-white">診療の特色（グループ紹介）</Link></li>
               <li><Link href="/research/publications" className="transition-colors hover:text-white">論文・業績一覧</Link></li>
-              <li><Link href="/research/media" className="transition-colors hover:text-white">学会発表・メディア掲載</Link></li>
             </ul>
             <div className="mt-6 flex flex-col gap-2 text-sm text-white/40">
               <a href="https://www.yokohama-cu.ac.jp/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 transition-colors hover:text-white">
