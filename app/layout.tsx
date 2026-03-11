@@ -57,9 +57,10 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
+      data-scroll-behavior="smooth"
       className={`${notoSansJP.variable} ${shipporiminchoB1.variable}`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         {children}
         <Analytics />
       </body>
