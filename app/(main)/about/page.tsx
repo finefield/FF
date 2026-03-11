@@ -276,9 +276,9 @@ export default function AboutPage() {
                   </svg>
                 ),
                 iconBg: "bg-navy/10",
-                title: "研究紹介",
-                desc: "消化管・肝臓・胆膵の3グループを中心とした研究テーマと最新の成果をご紹介します。",
-                cta: "研究を見る",
+                title: "診療の特色（グループ紹介）",
+                desc: "消化管・肝臓・胆膵の3グループを中心とした診療の特色と最新の成果をご紹介します。",
+                cta: "詳細を見る",
               },
               {
                 href: "/research/publications",
@@ -292,18 +292,7 @@ export default function AboutPage() {
                 desc: "国内外の主要ジャーナルに掲載された論文、著書などの業績一覧です。",
                 cta: "業績を見る",
               },
-              {
-                href: "/research/media",
-                icon: (
-                  <svg className="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
-                  </svg>
-                ),
-                iconBg: "bg-gold/10",
-                title: "学会発表・メディア掲載",
-                desc: "国内・国際学会での発表実績や、新聞・テレビなどのメディア掲載情報です。",
-                cta: "発表を見る",
-              },
+
               {
                 href: "/about/alumni",
                 icon: (

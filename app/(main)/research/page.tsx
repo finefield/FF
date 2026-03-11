@@ -4,8 +4,8 @@ import { SectionHeading } from "@/components/layout/section-heading"
 import { ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "研究グループ紹介",
-  description: "横浜市立大学消化器内科学教室の研究グループをご紹介します。",
+  title: "診療の特色（グループ紹介）",
+  description: "横浜市立大学消化器内科学教室の診療の特色と各グループをご紹介します。",
 }
 
 const groups = [
@@ -41,7 +41,7 @@ export default function ResearchPage() {
             Research Groups
           </p>
           <h1 className="mt-3 font-serif text-3xl font-bold text-white md:text-4xl">
-            研究グループ紹介
+            診療の特色（グループ紹介）
           </h1>
         </div>
       </section>
