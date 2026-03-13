@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
-import { NetworkGraph } from "@/components/network/network-graph"
 import { HospitalList } from "@/components/network/hospital-list"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
@@ -50,23 +49,6 @@ export default function NetworkPage() {
           <p className="mt-3 max-w-2xl leading-relaxed text-white/60">
             より良い医療の提供と、消化器内科学の更なる発展を目指し、日々、研鑽を積んでいます。
           </p>
-        </div>
-      </section>
-
-      {/* ネットワーク図 */}
-      <section className="bg-navy-sub py-12 md:py-16">
-        <div className="mx-auto max-w-5xl px-5">
-          <div className="mb-6 text-center">
-            <h2 className="font-serif text-xl font-bold text-white md:text-2xl">
-              ネットワーク図
-            </h2>
-            <p className="mt-2 text-sm text-white/50">
-              ノードにホバーすると病院名が表示されます
-            </p>
-          </div>
-          <div className="mx-auto max-w-3xl rounded-2xl border border-white/10 bg-navy p-4 shadow-xl md:p-6">
-            <NetworkGraph />
-          </div>
         </div>
       </section>
 
