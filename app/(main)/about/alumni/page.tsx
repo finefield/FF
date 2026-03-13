@@ -415,10 +415,9 @@ export default function AlumniPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               {[
                 { icon: Users, number: `${totalMembers}+`, label: "同門会員施設", color: "text-navy", bg: "bg-navy/10" },
-                { icon: Calendar, number: "年1回", label: "総会・学術講演会", color: "text-teal", bg: "bg-teal/10" },
                 { icon: MapPin, number: `${totalRegions}`, label: "地域をカバー", color: "text-gold", bg: "bg-gold/10" },
                 { icon: Heart, number: "75年+", label: "教室の歴史", color: "text-teal", bg: "bg-teal/10" },
               ].map((stat) => (
@@ -448,17 +447,12 @@ export default function AlumniPage() {
             </h2>
           </div>
 
-          <div className="reveal-stagger mt-12 grid gap-6 md:grid-cols-3">
+          <div className="reveal-stagger mt-12 grid gap-6 md:grid-cols-2">
             {[
               {
                 title: "年次総会・学術講演会",
                 desc: "毎年秋に開催される同門会総会では、教室の活動報告に加え、著名な講師を招いた特別講演や、会員による研究発表を行っています。最新の消化器病学のトピックスを共有する貴重な場です。",
                 color: "border-t-navy",
-              },
-              {
-                title: "同門会誌の発行",
-                desc: "年1回発行の同門会誌では、教室の研究成果、会員の近況報告、関連病院の紹介などを掲載しています。遠方の会員とも情報を共有し、教室とのつながりを維持する大切な媒体です。",
-                color: "border-t-teal",
               },
               {
                 title: "キャリア支援・交流",
@@ -480,57 +474,6 @@ export default function AlumniPage() {
 
       {/* ---- 同門会員・関連施設一覧 ---- */}
       <MemberDirectorySection />
-
-      {/* ---- 同門会組織 ---- */}
-      <section className="bg-off-white py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="reveal">
-            <p className="font-serif text-sm tracking-wider text-muted-foreground italic">Organization</p>
-            <h2 className="mt-2 font-serif text-2xl font-bold text-navy md:text-3xl heading-gold-line">
-              同門会組織
-            </h2>
-          </div>
-
-          <div className="reveal mt-10 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-            <table className="w-full text-sm">
-              <tbody>
-                {[
-                  ["会長", "多羅尾 和郎（たらお内科・消化器科 名誉院長）"],
-                  ["副会長", "（会員より選出）"],
-                  ["幹事", "前田 愼（消化器内科学教室 主任教授）"],
-                  ["会計", "（教室スタッフより選出）"],
-                  ["監査", "（会員より選出）"],
-                ].map(([role, name], i) => (
-                  <tr key={role} className={i % 2 === 0 ? "bg-card" : "bg-off-white"}>
-                    <td className="w-32 px-6 py-4 font-medium text-navy md:w-40">{role}</td>
-                    <td className="px-6 py-4 text-text-sub">{name}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="reveal mt-8 rounded-2xl border border-border bg-card p-6 md:p-8">
-            <h3 className="font-serif text-base font-bold text-navy">入会について</h3>
-            <p className="mt-3 text-sm leading-relaxed text-text-sub">
-              横浜市立大学 消化器内科学教室に在籍された方（大学院生・研究生を含む）は、
-              どなたでも同門会にご入会いただけます。入会をご希望の方は、教室事務局までお問い合わせください。
-            </p>
-            <div className="mt-4 flex flex-col gap-1 text-sm text-text-sub">
-              <p>
-                <span className="font-medium text-foreground">連絡先：</span>
-                横浜市立大学 消化器内科学教室 同門会事務局
-              </p>
-              <p>
-                <span className="font-medium text-foreground">TEL：</span>045-787-2640
-              </p>
-              <p>
-                <span className="font-medium text-foreground">E-mail：</span>gastro@yokohama-cu.ac.jp
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ---- CTA ---- */}
       <section className="bg-background py-16 md:py-20">
