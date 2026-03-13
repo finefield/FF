@@ -43,7 +43,7 @@ export function NewsSection() {
         <div className="flex flex-col divide-y divide-[#DCE4EE] reveal">
           {newsItems.map((item) => (
             <Link
-              key={item.title}
+              key={item.id}
               href={item.href}
               className="group flex flex-col gap-2 py-4 transition-colors hover:bg-[#F4F7FA] md:flex-row md:items-center md:gap-6 md:px-4 md:rounded-lg"
             >
