@@ -28,7 +28,6 @@ export const navItems = [
     children: [
       { label: "教育・研修の特徴", href: "/recruit/education" },
       { label: "キャリアパス・ロールモデル", href: "/recruit/career" },
-      { label: "連携病院ネットワーク", href: "/network" },
       { label: "先輩医師のVoice", href: "/recruit/voice" },
       { label: "見学・入局相談", href: "/recruit/visit" },
       { label: "よくある質問 FAQ", href: "/recruit/faq" },
