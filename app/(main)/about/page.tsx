@@ -1,8 +1,99 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, ChevronRight } from "lucide-react"
+import { ArrowRight, ChevronRight, ChevronDown, ChevronUp } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
+
+const publications = [
+  { authors: "Ogura K, Kanai F, Maeda S, et al.", title: "High prevalence of cytotoxin positive Helicobacter pylori in patients unrelated to the presence of peptic ulcers in Japan.", journal: "Gut", year: "1998", volume: "41:463-8" },
+  { authors: "Nagoshi H, Uehara Y, Kanai F, Maeda S, et al.", title: "Prostaglandin D2 inhibits inducible nitric oxide synthase expression in rat vascular smooth muscle cells.", journal: "Circ Res", year: "1998", volume: "82:204-9" },
+  { authors: "Maeda S, Ogura K, Yoshida H, et al.", title: "Major virulence factors, VacA and CagA, are commonly positive in Helicobacter pylori isolates in Japan.", journal: "Gut", year: "1998", volume: "42:338-43" },
+  { authors: "Masaki T, Okada M, Shiratori Y, ..., Maeda S, et al.", title: "pp60c-src activation in hepatocellular carcinoma of humans and LEC rats.", journal: "Hepatology", year: "1998", volume: "27:1257-64" },
+  { authors: "Maeda S, Yoshida H, Ogura K, et al.", title: "Helicobacter pylori specific nested PCR assay for the detection of 23S rRNA mutation associated with clarithromycin resistance.", journal: "Gut", year: "1998", volume: "43:317-21" },
+  { authors: "Maeda S, Yoshida H, Ikenoue T, et al.", title: "Structure of cag pathogenicity island in Japanese Helicobacter pylori isolates.", journal: "Gut", year: "1999", volume: "44:336-41" },
+  { authors: "Asahi M, Azuma T, ..., Maeda S, et al.", title: "Helicobacter pylori CagA protein can be tyrosine phosphorylated in gastric epithelial cells.", journal: "J Exp Med", year: "2000", volume: "191:593-602" },
+  { authors: "Maeda S, Yoshida H, Ogura K, et al.", title: "H. pylori activates NF-kappaB through a signaling pathway involving IkappaB kinases, NF-kappaB-inducing kinase, TRAF2, and TRAF6 in gastric cancer cells.", journal: "Gastroenterology", year: "2000", volume: "119:97-108" },
+  { authors: "Ogura K, Maeda S, Nakao M, et al.", title: "Virulence factors of Helicobacter pylori responsible for gastric diseases in Mongolian gerbil.", journal: "J Exp Med", year: "2000", volume: "192:1601-10" },
+  { authors: "Mitsuno Y, Yoshida H, Maeda S, et al.", title: "Helicobacter pylori induced transactivation of SRE and AP-1 through the ERK signalling pathway in gastric cancer cells.", journal: "Gut", year: "2001", volume: "49:18-22" },
+  { authors: "Maeda S, Yoshida H, Mitsuno Y, et al.", title: "Analysis of apoptotic and antiapoptotic signalling pathways induced by Helicobacter pylori.", journal: "Gut", year: "2002", volume: "50:771-8" },
+  { authors: "Hirata Y, Maeda S, Mitsuno Y, et al.", title: "Helicobacter pylori CagA protein activates serum response element-driven transcription independently of tyrosine phosphorylation.", journal: "Gastroenterology", year: "2002", volume: "123:1962-71" },
+  { authors: "Maeda S, Chang L, Li ZW, et al.", title: "IKKbeta is required for prevention of apoptosis mediated by cell-bound but not by circulating TNFalpha.", journal: "Immunity", year: "2003", volume: "19:725-37" },
+  { authors: "Hsu LC, Park JM, Zhang K, ..., Maeda S, et al.", title: "The protein kinase PKR is required for macrophage apoptosis after activation of Toll-like receptor 4.", journal: "Nature", year: "2004", volume: "428:341-5" },
+  { authors: "Sil AK, Maeda S, Sano Y, et al.", title: "IkappaB kinase-alpha acts in the epidermis to control skeletal and craniofacial morphogenesis.", journal: "Nature", year: "2004", volume: "428:660-4" },
+  { authors: "Luo JL, Maeda S, Hsu LC, et al.", title: "Inhibition of NF-kappaB in cancer cells converts inflammation-induced tumor growth mediated by TNFalpha to TRAIL-mediated tumor regression.", journal: "Cancer Cell", year: "2004", volume: "6:297-305" },
+  { authors: "Park JM, Ng VH, Maeda S, et al.", title: "Anthrolysin O and Other Gram-positive Cytolysins Are Toll-like Receptor 4 Agonists.", journal: "J Exp Med", year: "2004", volume: "200:1647-55" },
+  { authors: "Arkan MC, Hevener AL, ..., Maeda S, et al.", title: "IKK-beta links inflammation to obesity-induced insulin resistance.", journal: "Nat Med", year: "2005", volume: "11:191-8" },
+  { authors: "Maeda S, Hsu LC, Liu H, et al.", title: "Nod2 mutation in Crohn's disease potentiates NF-kappaB activity and IL-1beta processing.", journal: "Science", year: "2005", volume: "307:734-8" },
+  { authors: "Kamata H, Honda H, Maeda S, et al.", title: "Reactive oxygen species promote TNFa-induced cell death and sustained JNK activation by oxidizing MAP kinase phosphatases.", journal: "Cell", year: "2005", volume: "120:649-61" },
+  { authors: "Ruocco MG, Maeda S, Park JM, et al.", title: "IkappaB kinase (IKK)beta, but not IKKalpha, is a critical mediator of osteoclast survival and is required for inflammation-induced bone loss.", journal: "J Exp Med", year: "2005", volume: "201:1677-87" },
+  { authors: "Maeda S, Kamata H, Luo JL, et al.", title: "IKKb couples hepatocyte death to cytokine-driven compensatory proliferation that promotes chemical hepatocarcinogenesis.", journal: "Cell", year: "2005", volume: "121:977-90" },
+  { authors: "Shibata W, Hirata Y, Maeda S, et al.", title: "CagA protein secreted by the intact type IV secretion system leads to gastric epithelial inflammation in the Mongolian gerbil model.", journal: "J Pathol", year: "2006", volume: "210:306-14" },
+  { authors: "Chang L, Kamata H, ..., Maeda S, et al.", title: "The E3 ubiquitin ligase itch couples JNK activation to TNFalpha-induced cell death by inducing c-FLIP(L) turnover.", journal: "Cell", year: "2006", volume: "124:601-13" },
+  { authors: "Sakurai T, Maeda S, Chang L, Karin M.", title: "Loss of hepatic NF-kappaB activity enhances chemical hepatocarcinogenesis through sustained c-Jun N-terminal kinase 1 activation.", journal: "Proc Natl Acad Sci U S A", year: "2006", volume: "103:10544-51" },
+  { authors: "Lin R, Maeda S, Liu C, et al.", title: "A large noncoding RNA is a marker for murine hepatocellular carcinomas and a spectrum of human carcinomas.", journal: "Oncogene", year: "2007", volume: "26:851-8" },
+  { authors: "Naugler WE, Sakurai T, ..., Maeda S, et al.", title: "Gender disparity in liver cancer due to sex differences in MyD88-dependent IL-6 production.", journal: "Science", year: "2007", volume: "317:121-4" },
+  { authors: "Shibata W, Maeda S, Hikiba Y, et al.", title: "c-Jun NH2-terminal kinase 1 is a critical regulator for the development of gastric cancer in mice.", journal: "Cancer Res", year: "2008", volume: "68:5031-9" },
+  { authors: "Nakagawa H, Maeda S, Hikiba Y, et al.", title: "Deletion of ASK1 attenuates acetaminophen-induced liver injury by inhibiting JNK activation.", journal: "Gastroenterology", year: "2008", volume: "135:1311-21" },
+  { authors: "Sakurai T, He G, ..., Maeda S, et al.", title: "Hepatocyte necrosis induced by oxidative stress and IL-1 alpha release mediate carcinogen-induced compensatory proliferation and liver tumorigenesis.", journal: "Cancer Cell", year: "2008", volume: "14:156-65" },
+  { authors: "Sakamoto K, Maeda S, Hikiba Y, et al.", title: "Constitutive NF-B activation in colorectal carcinoma plays a key role in angiogenesis, promoting tumor growth.", journal: "Clin Cancer Res", year: "2009", volume: "15:2248-58" },
+  { authors: "Maeda S, Hikiba Y, Sakamoto K, et al.", title: "IKK/NF-B Activation Controls the Development of Liver Metastasis via IL-6 Expression.", journal: "Hepatology", year: "2009", volume: "50:1851-60" },
+  { authors: "Hayakawa Y, Hirata Y, ..., Maeda S.", title: "Apoptosis Signal-Regulating Kinase 1 regulates colitis and colitis-associated tumorigenesis via the innate immune responses.", journal: "Gastroenterology", year: "2010", volume: "138:1055-67" },
+  { authors: "Sakamoto K, Hikiba Y, ..., Maeda S.", title: "IkappaB kinase beta regulates gastric carcinogenesis via IL-1 expression.", journal: "Gastroenterology", year: "2010", volume: "139:226-38" },
+  { authors: "Hayakawa Y, Hirata Y, ..., Maeda S, Koike K.", title: "Apoptosis signal-regulating kinase 1 and cyclin D1 compose a positive feedback loop contributing to tumor growth in gastric cancer.", journal: "Proc Natl Acad Sci U S A", year: "2011", volume: "108(2):780-5" },
+  { authors: "Kudo Y, Tanaka Y, ..., Maeda S, et al.", title: "Altered Composition of Fatty Acids Exacerbates Hepatotumorigenesis during Activation of the Phosphatidylinositol 3-kinase Pathway.", journal: "J Hepatol", year: "2011", volume: "55(6):1400-8" },
+  { authors: "Nakagawa H, Hirata Y, ..., Maeda S.", title: "Apoptosis signal-regulating kinase 1 inhibits hepatocarcinogenesis by controlling the tumor-suppressing function of stress-activated mitogen-activated protein kinase.", journal: "Hepatology", year: "2011", volume: "54(1):185-95" },
+  { authors: "Ijichi H, Chytil A, ..., Maeda S, et al.", title: "Inhibiting Cxcr2 disrupts tumor-stromal interactions and improves survival in a mouse model of pancreatic ductal adenocarcinoma.", journal: "J Clin Invest", year: "2011", volume: "121(10):4106-17" },
+  { authors: "Fujii Y, Yoshihashi K, ..., Maeda S, et al.", title: "CDX1 confers intestinal phenotype on gastric epithelial cells via induction of stemness-associated reprogramming factors SALL4 and KLF5.", journal: "Proc Natl Acad Sci U S A", year: "2012", volume: "109(50):20584-9" },
+  { authors: "Takata A, Otsuka M, ..., Maeda S, et al.", title: "MicroRNA-140 acts as a liver tumor suppressor by controlling NF-κB activity by directly targeting DNA methyltransferase 1 (Dnmt1) expression.", journal: "Hepatology", year: "2013", volume: "57(1):162-70" },
+  { authors: "Sakamoto K, Hikiba Y, ..., Maeda S.", title: "Promotion of DNA repair by nuclear IKKβ phosphorylation of ATM in response to genotoxic stimuli.", journal: "Oncogene", year: "2013", volume: "32(14):1854-62" },
+  { authors: "Nakagawa H, Hikiba Y, Hirata Y, ..., Maeda S.", title: "Loss of liver E-cadherin induces sclerosing cholangitis and promotes carcinogenesis.", journal: "Proc Natl Acad Sci U S A", year: "2014", volume: "111(3):1090-5" },
+]
+
+function PublicationsSection() {
+  const [showAll, setShowAll] = useState(false)
+  const displayedPubs = showAll ? publications : publications.slice(0, 10)
+
+  return (
+    <div className="reveal mt-10 rounded-2xl border border-border bg-card p-8 shadow-sm">
+      <h3 className="font-serif text-lg font-bold text-navy">
+        主な業績
+        <span className="ml-2 text-sm font-normal text-text-sub">英文原著（全{publications.length}報）</span>
+      </h3>
+      <div className="mt-5 flex flex-col gap-3">
+        {displayedPubs.map((pub, i) => (
+          <div key={i} className="flex gap-4 rounded-lg border border-border/50 bg-off-white p-4 text-sm">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy/10 text-xs font-bold text-navy">{i + 1}</span>
+            <div>
+              <p className="text-text-sub"><span className="font-medium text-foreground">{pub.authors}</span> {pub.title}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                <span className="font-medium italic">{pub.journal}</span> {pub.volume} ({pub.year})
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      {publications.length > 10 && (
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-off-white py-3 text-sm font-medium text-navy transition-colors hover:bg-navy/5"
+        >
+          {showAll ? (
+            <>
+              閉じる
+              <ChevronUp className="h-4 w-4" />
+            </>
+          ) : (
+            <>
+              もっと見る（残り{publications.length - 10}件）
+              <ChevronDown className="h-4 w-4" />
+            </>
+          )}
+        </button>
+      )}
+    </div>
+  )
+}
 
 export default function AboutPage() {
   const ref = useScrollReveal()
@@ -196,37 +287,7 @@ export default function AboutPage() {
           </div>
 
           {/* 主な業績 */}
-          <div className="reveal mt-10 rounded-2xl border border-border bg-card p-8 shadow-sm">
-            <h3 className="font-serif text-lg font-bold text-navy">
-              主な業績
-              <span className="ml-2 text-sm font-normal text-text-sub">英文原著 I.F. {'>'} 7</span>
-            </h3>
-            <div className="mt-5 flex flex-col gap-3">
-              {[
-                { authors: "Nakagawa H, ... Maeda S.", title: "Loss of liver E-cadherin induces sclerosing cholangitis and promotes carcinogenesis.", journal: "Proc Natl Acad Sci U S A", year: "2014" },
-                { authors: "Hayakawa Y, ... Maeda S, Koike K.", title: "Apoptosis signal-regulating kinase 1 and cyclin D1 compose a positive feedback loop contributing to tumor growth in gastric cancer.", journal: "Proc Natl Acad Sci U S A", year: "2011" },
-                { authors: "Sakamoto K, ... Maeda S.", title: "IkappaB kinase beta regulates gastric carcinogenesis via IL-1 expression.", journal: "Gastroenterology", year: "2010" },
-                { authors: "Maeda S, Kamata H, ... Karin M.", title: "IKKb couples hepatocyte death to cytokine-driven compensatory proliferation that promotes chemical hepatocarcinogenesis.", journal: "Cell", year: "2005" },
-                { authors: "Maeda S, Hsu LC, ... Karin M.", title: "Nod2 mutation in Crohn's disease potentiates NF-kappaB activity and IL-1beta processing.", journal: "Science", year: "2005" },
-                { authors: "Naugler WE, ... Maeda S, ... Karin M.", title: "Gender disparity in liver cancer due to sex differences in MyD88-dependent IL-6 production.", journal: "Science", year: "2007" },
-                { authors: "Kamata H, ... Maeda S, ... Karin M.", title: "Reactive oxygen species promote TNFa-induced cell death and sustained JNK activation by oxidizing MAP kinase phosphatases.", journal: "Cell", year: "2005" },
-                { authors: "Sakurai T, ... Maeda S, ... Karin M.", title: "Hepatocyte necrosis induced by oxidative stress and IL-1 alpha release mediate carcinogen-induced compensatory proliferation and liver tumorigenesis.", journal: "Cancer Cell", year: "2008" },
-              ].map((pub, i) => (
-                <div key={i} className="flex gap-4 rounded-lg border border-border/50 bg-off-white p-4 text-sm">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy/10 text-xs font-bold text-navy">{i + 1}</span>
-                  <div>
-                    <p className="text-text-sub"><span className="font-medium text-foreground">{pub.authors}</span> {pub.title}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      <span className="font-medium italic">{pub.journal}</span> ({pub.year})
-                    </p>
-                  </div>
-                </div>
-              ))}
-              <p className="mt-2 text-center text-xs text-muted-foreground">
-                他、Cell, Science, Nature Medicine, PNAS, Gastroenterology, Hepatology 等に多数掲載（全42報 / I.F. {'>'} 7）
-              </p>
-            </div>
-          </div>
+          <PublicationsSection />
         </div>
       </section>
 
