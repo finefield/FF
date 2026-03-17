@@ -41,7 +41,7 @@ export function NewsSection() {
         </div>
 
         <div className="flex flex-col divide-y divide-[#DCE4EE] reveal">
-          {newsItems.map((item) => (
+          {newsItems.slice(0, 7).map((item) => (
             <Link
               key={item.id}
               href={item.href}
