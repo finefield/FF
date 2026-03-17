@@ -60,11 +60,12 @@ export const stats = [
 ]
 
 export const newsItems = [
+  { id: "2026-03-08-ikeda-locc", date: "2026.03.08", category: "論文", title: "池田 良輔先生（附属病院・助教）の論文が掲載されました", href: "/news/2026-03-08-ikeda-locc" },
   { id: "2026-03-03-doba", date: "2026.03.03", category: "論文", title: "道端 信貴先生（横須賀市立市民病院）の論文が掲載されました", href: "/news/2026-03-03-doba" },
   { id: "2026-02-15-miwa-double-lumen", date: "2026.02.15", category: "論文", title: "三輪 治生先生（センター病院・講師）の論文が掲載されました", href: "/news/2026-02-15-miwa-double-lumen" },
   { id: "2026-02-14-sano-pancreatic", date: "2026.02.14", category: "論文", title: "佐野 裕亮先生（国立がん研究センター中央病院）の論文が掲載されました", href: "/news/2026-02-14-sano-pancreatic" },
   { id: "2026-02-08-shibui-uc-biomarker", date: "2026.02.08", category: "論文", title: "渋井 俊祐先生（北里研究所）の論文が掲載されました", href: "/news/2026-02-08-shibui-uc-biomarker" },
-  { id: "2026-02-05-miwa-lams", date: "2026.02.05", category: "論文", title: "三輪 治生先生（センター病院・講師）の論文が掲載されました", href: "/news/2026-02-05-miwa-lams" },
+  { id: "2026-02-05-miwa-traction-band", date: "2026.02.05", category: "論文", title: "三輪 治生先生（センター病院・講師）の論文が掲載されました", href: "/news/2026-02-05-miwa-traction-band" },
   { id: "2026-01-28-miwa-angled-puncture", date: "2026.01.28", category: "論文", title: "三輪 治生先生（センター病院・講師）の論文が掲載されました", href: "/news/2026-01-28-miwa-angled-puncture" },
   { id: "2026-01-23-miwa-nitinol-wire", date: "2026.01.23", category: "論文", title: "三輪 治生先生（センター病院・講師）の論文が掲載されました", href: "/news/2026-01-23-miwa-nitinol-wire" },
   { id: "2026-01-23-endo-hepatic-cyst", date: "2026.01.23", category: "症例報告", title: "遠藤 和樹先生（センター病院）の症例報告が掲載されました", href: "/news/2026-01-23-endo-hepatic-cyst" },
