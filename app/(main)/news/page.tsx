@@ -1,14 +1,10 @@
-import type { Metadata } from "next"
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { newsItems } from "@/lib/data/site-data"
-import { ArrowRight } from "lucide-react"
-
-export const metadata: Metadata = {
-  title: "NEWS・お知らせ",
-  description:
-    "横浜市立大学消化器内科学教室の最新ニュース・お知らせ一覧です。",
-}
+import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react"
 
 const categoryColors: Record<string, string> = {
   "受賞": "bg-gold/10 text-gold",
@@ -19,7 +15,12 @@ const categoryColors: Record<string, string> = {
   "イベント": "bg-secondary/10 text-secondary",
 }
 
+const INITIAL_DISPLAY_COUNT = 7
+
 export default function NewsPage() {
+  const [showAll, setShowAll] = useState(false)
+  const displayedNews = showAll ? newsItems : newsItems.slice(0, INITIAL_DISPLAY_COUNT)
+
   return (
     <div>
       {/* Hero */}
@@ -39,7 +40,7 @@ export default function NewsPage() {
         <div className="mx-auto max-w-4xl px-4">
           <SectionHeading title="お知らせ一覧" enTitle="All News" />
           <div className="flex flex-col divide-y divide-border">
-            {newsItems.map((item) => (
+            {displayedNews.map((item) => (
               <Link 
                 key={item.id} 
                 href={item.href}
@@ -62,6 +63,28 @@ export default function NewsPage() {
               </Link>
             ))}
           </div>
+
+          {/* Show All / Collapse Button */}
+          {newsItems.length > INITIAL_DISPLAY_COUNT && (
+            <div className="mt-8 text-center">
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-6 py-3 text-sm font-medium text-navy shadow-sm transition-colors hover:bg-off-white"
+              >
+                {showAll ? (
+                  <>
+                    閉じる
+                    <ChevronUp className="h-4 w-4" />
+                  </>
+                ) : (
+                  <>
+                    全てを表示（残り{newsItems.length - INITIAL_DISPLAY_COUNT}件）
+                    <ChevronDown className="h-4 w-4" />
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </section>
     </div>
