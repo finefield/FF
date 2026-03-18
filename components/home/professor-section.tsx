@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
 
@@ -11,17 +12,16 @@ export function ProfessorSection() {
     <section className="bg-[#F4F7FA] py-20 md:py-28" ref={ref}>
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="reveal grid items-center gap-12 md:grid-cols-2">
-          {/* Photo placeholder */}
+          {/* Photo */}
           <div className="flex justify-center md:justify-start">
             <div className="relative w-full max-w-sm overflow-hidden rounded-2xl bg-white shadow-lg aspect-[3/4]">
-              <div className="flex h-full items-center justify-center bg-gradient-to-b from-[#0C2340]/5 to-[#147A85]/5">
-                <div className="text-center">
-                  <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-[#0C2340]/10">
-                    <span className="font-serif text-3xl text-[#0C2340]/30">前</span>
-                  </div>
-                  <p className="mt-3 text-xs text-[#7A8FA8]">教授写真</p>
-                </div>
-              </div>
+              <Image
+                src="/images/staff/maeda-shin.png"
+                alt="前田 愼 教授"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 384px"
+              />
             </div>
           </div>
 
