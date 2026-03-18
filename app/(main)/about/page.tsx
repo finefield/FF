@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, ChevronRight, ChevronDown, ChevronUp } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
 
@@ -136,14 +137,13 @@ export default function AboutPage() {
             {/* 写真 */}
             <div className="flex justify-center md:col-span-2 md:justify-start">
               <div className="relative w-full max-w-md overflow-hidden rounded-2xl bg-muted shadow-lg aspect-[3/4]">
-                <div className="flex h-full items-center justify-center bg-gradient-to-b from-navy/5 to-teal/5">
-                  <div className="text-center">
-                    <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-navy/10">
-                      <span className="font-serif text-4xl text-navy/30">前</span>
-                    </div>
-                    <p className="mt-4 text-xs text-muted-foreground">教授写真</p>
-                  </div>
-                </div>
+                <Image
+                  src="/images/staff/maeda-shin.png"
+                  alt="前田 愼 教授"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 448px"
+                />
               </div>
             </div>
 

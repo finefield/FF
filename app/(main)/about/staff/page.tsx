@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ChevronRight, ArrowRight, Building2 } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
 
@@ -11,6 +12,7 @@ const professors = [
     year: "H05",
     title: "主任教授",
     affiliation: "消化器内科学教室",
+    image: "/images/staff/maeda-shin.png",
   },
   {
     name: "稲森 正彦",
@@ -194,9 +196,21 @@ export default function StaffPage() {
                 key={p.name}
                 className="reveal-child group rounded-2xl border-2 border-gold/20 bg-gradient-to-b from-gold/5 to-transparent p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gold/15">
-                  <span className="font-serif text-2xl text-gold">{p.name.charAt(0)}</span>
-                </div>
+                {p.image ? (
+                  <div className="mx-auto h-20 w-20 overflow-hidden rounded-full border-2 border-gold/30">
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      width={80}
+                      height={80}
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
+                ) : (
+                  <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gold/15">
+                    <span className="font-serif text-2xl text-gold">{p.name.charAt(0)}</span>
+                  </div>
+                )}
                 <span className="mt-4 inline-block rounded-full bg-gold/10 px-3 py-1 text-xs font-bold text-gold">
                   {p.title}
                 </span>
