@@ -16,7 +16,7 @@ const contacts = [
     value: "045-XXX-XXXX（地域連携室直通）",
   },
   {
-    icon: Fax,
+    icon: Printer,
     label: "FAX番号",
     value: "045-XXX-XXXX",
   },
