@@ -1,31 +1,90 @@
 "use client"
 
 import { useState } from "react"
+import { ChevronDown, ChevronUp, FileText, BookOpen, PenTool, Presentation, Award } from "lucide-react"
 import { SectionHeading } from "@/components/layout/section-heading"
+import publicationsData from "@/lib/data/publications.json"
 
-const publications: Record<string, { title: string; authors: string; journal: string; year: string }[]> = {
-  "2026": [
-    { title: "Artificial Intelligence-Assisted Detection of Early Gastric Cancer in Endoscopic Images", authors: "Yamada I, Tanaka M, Sato J, et al.", journal: "Gastroenterology", year: "2026" },
-    { title: "Novel Biomarkers for Early Detection of Pancreatic Cancer", authors: "Takahashi S, Suzuki K, Nakamura H, et al.", journal: "Gut", year: "2026" },
-    { title: "Long-term Outcomes of Direct-Acting Antiviral Therapy in Hepatitis C Patients", authors: "Sato J, Kobayashi M, Ito T, et al.", journal: "Hepatology", year: "2026" },
-  ],
-  "2025": [
-    { title: "Gut Microbiome Alterations in Inflammatory Bowel Disease: A Multi-Center Study", authors: "Tanaka M, Yamada I, Watanabe K, et al.", journal: "Nature Communications", year: "2025" },
-    { title: "EUS-Guided Tissue Acquisition: Optimizing Diagnostic Yield", authors: "Takahashi S, Endo Y, Morita K, et al.", journal: "Gastrointestinal Endoscopy", year: "2025" },
-    { title: "MASLD/MASH: New Classification and Treatment Strategies", authors: "Sato J, Tanaka M, et al.", journal: "Journal of Hepatology", year: "2025" },
-    { title: "Endoscopic Submucosal Dissection for Superficial Esophageal Cancer", authors: "Yamada I, Ito T, et al.", journal: "Endoscopy", year: "2025" },
-  ],
-  "2024": [
-    { title: "Immune Checkpoint Inhibitors in Hepatocellular Carcinoma: Real-World Data", authors: "Sato J, Nakamura H, et al.", journal: "Liver International", year: "2024" },
-    { title: "Risk Factors for Post-ERCP Pancreatitis: A Prospective Study", authors: "Takahashi S, Yamada I, et al.", journal: "Pancreatology", year: "2024" },
-    { title: "Deep Learning Model for Colorectal Polyp Classification", authors: "Tanaka M, Suzuki K, et al.", journal: "Digestive Endoscopy", year: "2024" },
-  ],
+interface Section {
+  section: string
+  entries: string[]
 }
 
-const years = Object.keys(publications).sort((a, b) => Number(b) - Number(a))
+interface YearData {
+  year: number
+  source_file: string
+  sections: Section[]
+}
+
+const data = publicationsData as { years: YearData[] }
+
+const years = data.years.map((y) => y.year).sort((a, b) => b - a)
+
+const sectionIcons: Record<string, React.ReactNode> = {
+  "原著論文(症例報告を含む)": <FileText className="h-4 w-4" />,
+  "原著論文（症例報告を含む）": <FileText className="h-4 w-4" />,
+  "総説": <BookOpen className="h-4 w-4" />,
+  "著書": <PenTool className="h-4 w-4" />,
+  "学会等発表": <Presentation className="h-4 w-4" />,
+  "研究助成金": <Award className="h-4 w-4" />,
+}
+
+function PublicationSection({ section, entries }: { section: string; entries: string[] }) {
+  const [isExpanded, setIsExpanded] = useState(false)
+  const displayCount = 5
+  const hasMore = entries.length > displayCount
+  const displayedEntries = isExpanded ? entries : entries.slice(0, displayCount)
+
+  const icon = sectionIcons[section] || <FileText className="h-4 w-4" />
+
+  return (
+    <div className="rounded-xl border border-border bg-card overflow-hidden">
+      <div className="flex items-center gap-3 border-b border-border bg-muted/30 px-5 py-4">
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          {icon}
+        </span>
+        <h3 className="font-bold text-foreground">{section}</h3>
+        <span className="ml-auto rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          {entries.length}件
+        </span>
+      </div>
+      <div className="divide-y divide-border/50">
+        {displayedEntries.map((entry, i) => {
+          // 先頭の「・」を削除
+          const cleanEntry = entry.startsWith("・") ? entry.slice(1) : entry
+          return (
+            <div key={i} className="px-5 py-3">
+              <p className="text-sm leading-relaxed text-foreground/90">{cleanEntry}</p>
+            </div>
+          )
+        })}
+      </div>
+      {hasMore && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="flex w-full items-center justify-center gap-2 border-t border-border bg-muted/20 py-3 text-sm font-medium text-primary transition-colors hover:bg-muted/40"
+        >
+          {isExpanded ? (
+            <>
+              <ChevronUp className="h-4 w-4" />
+              閉じる
+            </>
+          ) : (
+            <>
+              <ChevronDown className="h-4 w-4" />
+              もっと見る（残り{entries.length - displayCount}件）
+            </>
+          )}
+        </button>
+      )}
+    </div>
+  )
+}
 
 export default function PublicationsPage() {
   const [selectedYear, setSelectedYear] = useState(years[0])
+
+  const yearData = data.years.find((y) => y.year === selectedYear)
 
   return (
     <div>
@@ -35,16 +94,17 @@ export default function PublicationsPage() {
             Publications
           </p>
           <h1 className="mt-3 font-serif text-3xl font-bold text-white md:text-4xl">
-            論文・業績
+            論文・業績一覧
           </h1>
         </div>
       </section>
 
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-4xl px-4">
-          <SectionHeading title="年度別論文一覧" enTitle="Papers by Year" />
+          <SectionHeading title="年度別業績一覧" enTitle="Publications by Year" />
 
-          <div className="mb-8 flex gap-2">
+          {/* 年度選択タブ */}
+          <div className="mb-10 flex flex-wrap gap-2">
             {years.map((year) => (
               <button
                 key={year}
@@ -55,23 +115,30 @@ export default function PublicationsPage() {
                     : "bg-muted text-muted-foreground hover:bg-border"
                 }`}
               >
-                {year}年
+                {year}年度
               </button>
             ))}
           </div>
 
-          <div className="flex flex-col gap-4">
-            {publications[selectedYear].map((pub, i) => (
-              <article key={i} className="rounded-xl border border-border bg-card p-5">
-                <h3 className="text-sm font-medium text-primary leading-relaxed">{pub.title}</h3>
-                <p className="mt-2 text-xs text-muted-foreground">{pub.authors}</p>
-                <p className="mt-1 text-xs font-medium italic text-secondary">{pub.journal} ({pub.year})</p>
-              </article>
-            ))}
-          </div>
+          {/* 選択年度のセクション表示 */}
+          {yearData && (
+            <div className="space-y-6">
+              <div className="mb-6 flex items-center gap-3 rounded-lg bg-navy/5 px-4 py-3">
+                <span className="text-2xl font-bold text-navy">{selectedYear}</span>
+                <span className="text-sm text-muted-foreground">年度 業績集</span>
+              </div>
+              {yearData.sections.map((section, i) => (
+                <PublicationSection
+                  key={i}
+                  section={section.section}
+                  entries={section.entries}
+                />
+              ))}
+            </div>
+          )}
 
-          <p className="mt-8 text-center text-sm text-muted-foreground">
-            ※ 上記は代表的な論文の一部です。詳細な業績リストについてはお問い合わせください。
+          <p className="mt-12 text-center text-sm text-muted-foreground">
+            ※ 各年度のPDFファイルは教室事務局にお問い合わせください。
           </p>
         </div>
       </section>
