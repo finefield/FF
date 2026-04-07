@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
-import { Phone, Fax, Mail, Clock, MapPin, ArrowRight } from "lucide-react"
+import { Phone, Printer, Mail, Clock, MapPin, ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "地域連携担当者連絡先",
@@ -16,8 +16,8 @@ const contacts = [
     value: "045-XXX-XXXX（地域連携室直通）",
   },
   {
-    icon: Fax,
-    label: "FAX番号",
+    icon: Printer,
+    label: "Printer番号",
     value: "045-XXX-XXXX",
   },
   {
