@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
-import { ArrowRight, Stethoscope, Microscope, Building2, Target, GraduationCap } from "lucide-react"
+import { ArrowRight, Stethoscope, Microscope, Building2, Target, GraduationCap, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /* ── 3つのキャリアルートデータ ── */
@@ -262,6 +262,7 @@ export default function CareerPage() {
                 route: "臨床重点ルート",
                 routeColor: "teal",
                 message: "医師6年目で入門しセンター病院でESDを中心に研鑽を積み、現在は附属病院で後進の指導にも携われるように。「外様」を感じたことは一度もありません。",
+                voiceId: "v6",
               },
               {
                 name: "平成29年卒先生",
@@ -270,6 +271,7 @@ export default function CareerPage() {
                 route: "研究重点ルート",
                 routeColor: "navy",
                 message: "自身がクローン病患者として、IBDを治す医師になりたいと入局。現在は大学院生として理化学研究所へ国内留学し、腸内細菌と炎症性疾患の研究に従事しています。",
+                voiceId: "v8",
               },
               {
                 name: "平成18年卒先生",
@@ -278,6 +280,7 @@ export default function CareerPage() {
                 route: "開業・地域医療ルート",
                 routeColor: "gold",
                 message: "子育てと常勤医を両立。結婚・出産後も急性期病院で勤務を続け、子供達に「頑張って働いているのを分かってくれている」と実感。やりたい事を追求することは決して悪いことではありません。",
+                voiceId: "v3",
               },
             ].map((model) => {
               const mc = colorMap[model.routeColor]
@@ -288,9 +291,7 @@ export default function CareerPage() {
                     <div className="absolute -right-5 -top-5 w-20 h-20 rounded-full border border-white/5" />
                     <div className="flex items-center gap-4">
                       <div className={cn("flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal to-teal-light shrink-0")}>
-                        <span className="font-serif text-xl font-bold text-white">
-                          {model.name[0]}
-                        </span>
+                        <User className="h-7 w-7 text-white" />
                       </div>
                       <div>
                         <p className="font-bold text-white text-[15px]">{model.name}</p>
@@ -303,9 +304,16 @@ export default function CareerPage() {
                   </div>
                   {/* カードボディ */}
                   <div className="p-5">
-                    <p className="text-sm leading-relaxed text-text-sub border-l-[3px] border-gold pl-3 italic">
+                    <p className="text-sm leading-relaxed text-text-sub border-l-[3px] border-gold pl-3 italic mb-4">
                       「{model.message}」
                     </p>
+                    <Link
+                      href={`/recruit/voice#${model.voiceId}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-teal hover:text-teal-light transition-colors"
+                    >
+                      もっとみる
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </div>
               )
@@ -323,7 +331,7 @@ export default function CareerPage() {
               <span className="text-[10px] tracking-[0.25em] text-gold font-bold uppercase">Why Choose Us</span>
             </div>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-white leading-tight mb-2.5">
-              当教室で<span className="text-gold-light">キャリアを築く</span>ということ
+              当教室で<span className="text-gold-light">キャリアを築く</span>というこ���
             </h2>
             <p className="text-sm text-white/55 leading-relaxed max-w-xl mb-10">
               多様な選択肢と充実した環境が、あなたの成長を支えます。
