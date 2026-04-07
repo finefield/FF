@@ -331,7 +331,7 @@ export default function CareerPage() {
               <span className="text-[10px] tracking-[0.25em] text-gold font-bold uppercase">Why Choose Us</span>
             </div>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-white leading-tight mb-2.5">
-              当教室で<span className="text-gold-light">キャリアを築く</span>というこ���
+              当教室で<span className="text-gold-light">キャリアを築く</span>ということ
             </h2>
             <p className="text-sm text-white/55 leading-relaxed max-w-xl mb-10">
               多様な選択肢と充実した環境が、あなたの成長を支えます。
