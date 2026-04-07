@@ -29,9 +29,7 @@ const cards = [
     cta: "先輩のVoiceを読む",
     href: "/recruit/voice",
     avatars: [
-      { name: "田中 A先生", dept: "肝臓グループ" },
-      { name: "佐藤 B先生", dept: "胆膵グループ" },
-      { name: "鈴木 C先生", dept: "消化管グループ" },
+      { name: "令和2年卒・専攻医", dept: "横浜南共済病院", quote: "指導の手厚さとやさしさ、学びはピカイチだと思います。" },
     ],
   },
   {
@@ -109,15 +107,18 @@ export function RecruitFocusSection() {
 
                   {/* Avatar preview for Voice */}
                   {card.avatars && (
-                    <div className="mt-4 flex gap-3">
+                    <div className="mt-4 space-y-3">
                       {card.avatars.map((a) => (
-                        <div key={a.name} className="flex items-center gap-2">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0C2340]/10 text-xs font-bold text-[#0C2340]">
+                        <div key={a.name} className="flex items-start gap-3">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0C2340]/10 text-sm font-bold text-[#0C2340]">
                             {a.name.charAt(0)}
                           </div>
                           <div>
                             <p className="text-xs font-medium text-[#192533]">{a.name}</p>
                             <p className="text-[10px] text-[#7A8FA8]">{a.dept}</p>
+                            {a.quote && (
+                              <p className="mt-1 text-xs leading-relaxed text-[#3D5168] line-clamp-2">{a.quote}</p>
+                            )}
                           </div>
                         </div>
                       ))}
