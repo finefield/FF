@@ -18,6 +18,7 @@ export const navItems = [
       { label: "教室の沿革", href: "/about/history" },
       { label: "スタッフ紹介", href: "/about/staff" },
       { label: "診療の特色（グループ紹介）", href: "/research" },
+      { label: "研究紹介", href: "/about/research" },
       { label: "論文・業績一覧", href: "/research/publications" },
       { label: "同門会", href: "/about/alumni" },
     ],
