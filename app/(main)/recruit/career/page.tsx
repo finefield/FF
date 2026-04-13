@@ -1,98 +1,14 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
-import { ArrowRight, Stethoscope, Microscope, Building2, Target, GraduationCap, User } from "lucide-react"
+import { ArrowRight, GraduationCap, User, CheckCircle2, Building2, Microscope, Stethoscope } from "lucide-react"
 import { cn } from "@/lib/utils"
-
-/* ── 3つのキャリアルートデータ ── */
-const routes = [
-  {
-    id: "clinical",
-    label: "臨床重点ルート",
-    icon: Stethoscope,
-    color: "teal",
-    tagline: "内視鏡・IVRのエキスパートとして最前線で臨床をリードする道",
-    catch: "高度な手技と豊富な症例数で、消化器診療の第一線に立ちます。",
-    goal: "大学病院部長 / 基幹病院 消化器センター長",
-    steps: [
-      { year: "1-2年目", label: "初期・後期研修", title: "消化器内科の基礎を構築", desc: "内科全般のローテーションで基盤を固めながら、上下部内視鏡・腹部超音波など消化器内科の基本手技を習得。", place: "附属病院 / 市民総合医療センター / 連携病院" },
-      { year: "3-5年目", label: "専門医取得期", title: "内科専門医・消化器病専門医の取得", desc: "大学病院と関連病院のローテーションで症例数を効率的に積み上げ、内科専門医・消化器病専門医を取得。ERCP・ESDなど高難度手技の修練も開始。", place: "大学病院 + 関連病院ローテーション" },
-      { year: "6-8年目", label: "臨床フェロー期", title: "高難度手技の修練・肝臓/消化管/胆膵の専門特化", desc: "消化器病専門医取得後、肝臓・胆膵・消化管の3グループの中から専門領域を選択。神奈川県立がんセンターでの最先端がん診療も経験可能。大学院進学も選択肢のひとつ。", place: "大学病院 / がんセンター / 専門施設" },
-      { year: "9年目以降", label: "指導的立場へ", title: "後進育成・部門リーダーへ", desc: "内視鏡指導医として後進を育成。連携病院での部長職・大学での講師・准教授を目指します。当教室の同門ネットワークが強力なサポートになります。", place: "基幹病院部長 / 大学講師・准教授" },
-    ],
-  },
-  {
-    id: "research",
-    label: "研究重点ルート",
-    icon: Microscope,
-    color: "navy",
-    tagline: "基礎・臨床研究で学術的な成果を出し、国内外から注目される研究者への道",
-    catch: "年間100本超の論文実績が示す通り、研究環境は充実しています。",
-    goal: "大学教授・准教授 / 国際研究者",
-    steps: [
-      { year: "1-3年目", label: "臨床基盤の構築", title: "臨床研修と研究テーマの模索", desc: "まず臨床の基礎を固めながら、指導医とともに研究テーマを探索。肝臓・胆膵・消化管の各グループの研究活動に触れ、自分の興味を絞り込む。", place: "附属病院 / 市民総合医療センター" },
-      { year: "3-6年目", label: "大学院・学位取得", title: "博士号（医学）の取得", desc: "大学院に進学し、基礎研究または臨床研究で学位取得。50以上の連携病院を活用した多施設共同研究で、質の高いデータを収集。国内外の学術誌への投稿・掲載を目指す。", place: "横浜市立大学大学院 / 連携施設" },
-      { year: "7-9年目", label: "国際展開", title: "海外留学・国際学会発表", desc: "学位取得後、海外の研究機関への留学も積極的にサポート。DDW・EASLをはじめとする国際学会での発表経験を積み、グローバルな研究者ネットワークを構築。", place: "海外研究機関 / 国際学会（DDW・EASL等）" },
-      { year: "10年目以降", label: "研究リーダーへ", title: "独立した研究グループの運営", desc: "大学のスタッフ（助教・講師・准教授）として、独自の研究グループを率いる立場へ。若手の指導と自身の研究を両立し、消化器領域の学術的発展に貢献します。", place: "大学教員（助教〜准教授・教授）" },
-    ],
-  },
-  {
-    id: "community",
-    label: "開業・地域医療ルート",
-    icon: Building2,
-    color: "gold",
-    tagline: "大学病院で培った専門性を地域に還元",
-    catch: "かかりつけ医として患者に寄り添い、横浜・神奈川の消化器医療を支えます。大学との連携も継続できます。",
-    goal: "クリニック院長 / 地域中核病院 消化器内科部長",
-    steps: [
-      { year: "1-5年目", label: "専門性の習得", title: "消化器内科の基礎〜専門医取得", desc: "大学病院・連携病院でのローテーションで幅広い症例を経験。内科専門医・消化器病専門医を取得しながら、地域で必要とされる内視鏡技術を中心に磨く。", place: "附属病院 / 連携病院（地域中核病院含む）" },
-      { year: "5-10年目", label: "地域連携の実践", title: "連携病院での中堅医として活躍", desc: "50以上の連携病院の中から、地域医療に根ざした施設での勤務を選択。消化器内科医・地域の医療連携の中心として経験を積む。多施設共同研究への参加も継続可能。", place: "連携病院（地域中核・地域密着）" },
-      { year: "10年目以降", label: "地域のリーダーへ", title: "開業・診療部長・地域医療のリーダー", desc: "培った専門性を活かして開業、または地域病院の消化器内科部長として診療体制を牽引。横浜市立大学の同門ネットワークと連携しながら、地域消化器医療の質向上に貢献。", place: "クリニック院長 / 地域病院部長" },
-    ],
-  },
-]
-
-const colorMap: Record<string, { bg: string; text: string; border: string; light: string; dot: string; tab: string; tabActive: string; header: string }> = {
-  teal: {
-    bg: "bg-teal/10",
-    text: "text-teal",
-    border: "border-teal/30",
-    light: "bg-teal/5",
-    dot: "bg-teal",
-    tab: "hover:border-teal hover:text-teal",
-    tabActive: "bg-navy text-white border-navy",
-    header: "from-[#0C2340] to-[#163559]",
-  },
-  navy: {
-    bg: "bg-navy/10",
-    text: "text-navy",
-    border: "border-navy/30",
-    light: "bg-navy/5",
-    dot: "bg-navy",
-    tab: "hover:border-navy hover:text-navy",
-    tabActive: "bg-navy text-white border-navy",
-    header: "from-[#0C2340] to-[#163559]",
-  },
-  gold: {
-    bg: "bg-gold/10",
-    text: "text-gold",
-    border: "border-gold/30",
-    light: "bg-gold/5",
-    dot: "bg-gold",
-    tab: "hover:border-gold hover:text-gold",
-    tabActive: "bg-navy text-white border-navy",
-    header: "from-[#0C2340] to-[#163559]",
-  },
-}
 
 export default function CareerPage() {
   const ref = useScrollReveal()
-  const [activeRoute, setActiveRoute] = useState("clinical")
-  const current = routes.find((r) => r.id === activeRoute)!
-  const colors = colorMap[current.color]
 
   return (
     <div ref={ref}>
@@ -154,94 +70,160 @@ export default function CareerPage() {
         </div>
       </section>
 
-      {/* 3つのキャリアルート */}
+      {/* 当教室の後期研修 */}
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4">
           <div className="reveal">
             <div className="flex items-center gap-2.5 mb-3">
               <div className="w-6 h-0.5 bg-gold" />
-              <span className="text-[10px] tracking-[0.25em] text-gold font-bold uppercase">Career Routes</span>
+              <span className="text-[10px] tracking-[0.25em] text-gold font-bold uppercase">Residency Training</span>
             </div>
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-navy leading-tight mb-2.5">3つのキャリアルート</h2>
-            <p className="text-sm text-text-sub leading-relaxed max-w-xl mb-10">
-              入局後のキャリアは大きく3つ。途中での方向転換も柔軟に対応します。あなたの志向に合ったルートを選んでください。
-            </p>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-navy leading-tight mb-8">当教室の後期研修</h2>
           </div>
 
-          {/* タブ切替 */}
-          <div className="reveal flex flex-wrap gap-2 mb-8">
-            {routes.map((route) => {
-              const RouteIcon = route.icon
-              const isActive = activeRoute === route.id
-              return (
-                <button
-                  key={route.id}
-                  onClick={() => setActiveRoute(route.id)}
-                  className={cn(
-                    "flex items-center gap-2 rounded-md px-6 py-2.5 text-sm font-bold border-2 transition-all",
-                    isActive 
-                      ? "bg-navy border-navy text-white" 
-                      : "bg-off-white border-border text-text-sub hover:border-teal hover:text-teal"
-                  )}
-                >
-                  <RouteIcon className="h-4 w-4" />
-                  {route.label}
-                </button>
-              )
-            })}
-          </div>
+          <div className="reveal">
+            <div className="space-y-6 max-w-4xl">
+              <ul className="space-y-3">
+                {[
+                  "2〜4年を基本として行う。",
+                  "一般市中病院と大規模中核病院を含めた2施設で研修を行う。",
+                  "どの施設で研修しても、消化器内科医として基本となる知識・技術を身につける。",
+                  "内科専門医などの取得を遅延なく達成する。",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-teal shrink-0 mt-0.5" />
+                    <span className="text-sm text-text-sub leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
 
-          {/* ルートヘッダー */}
-          <div className="reveal rounded-2xl bg-gradient-to-br from-[#0C2340] to-[#163559] p-8 md:p-10 mb-7 relative overflow-hidden">
-            <div className="absolute -right-10 -top-10 w-48 h-48 rounded-full border border-gold/10" />
-            <p className="text-[10px] tracking-[0.2em] text-gold-light font-bold uppercase mb-2">目指すゴール</p>
-            <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-2 leading-snug">{current.label}</h3>
-            <p className="text-sm text-white/60 leading-relaxed max-w-xl mb-3">
-              {current.tagline}。{current.catch}
-            </p>
-            <div className="inline-flex items-center gap-2 bg-gold/15 border border-gold/30 rounded-md px-4 py-2">
-              <Target className="h-4 w-4 text-gold-light" />
-              <span className="text-sm text-gold-light font-bold">{current.goal}</span>
+              {/* 一般市中病院 */}
+              <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+                <h4 className="font-bold text-navy text-sm mb-3 flex items-center gap-2">
+                  <Building2 className="h-4 w-4 text-teal" />
+                  一般市中病院では…
+                </h4>
+                <ul className="space-y-2 text-sm text-text-sub">
+                  <li className="flex items-start gap-2">
+                    <span className="text-teal mt-1.5">•</span>
+                    <span>チーム医療のリーダーとして任せられる部分が大きいため、医師として必要不可欠な責任感や判断力が醸成される。</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-teal mt-1.5">•</span>
+                    <span>消化器に限らない、内科全般の診療経験と知識を獲得できる。</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* 大規模中核病院 */}
+              <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+                <h4 className="font-bold text-navy text-sm mb-3 flex items-center gap-2">
+                  <Stethoscope className="h-4 w-4 text-navy" />
+                  大規模中核病院では…
+                </h4>
+                <ul className="space-y-2 text-sm text-text-sub">
+                  <li className="flex items-start gap-2">
+                    <span className="text-navy mt-1.5">•</span>
+                    <span>各領域の専門医による、ハイレベルな指導を受ける。</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-navy mt-1.5">•</span>
+                    <span>消化器内科に特化して集中的に技術の習得を行う。</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* ハイライトメッセージ */}
+              <div className="rounded-xl bg-gold/10 border-2 border-gold/30 p-5">
+                <p className="text-sm text-navy leading-relaxed font-medium">
+                  研修施設が変わっても、効率よく効果的な研修ができるように、<br />
+                  <strong className="text-gold">各施設に研修担当を設置し、運営委員会で情報を共有します。</strong><br />
+                  一人前の消化器内科医になれるよう、教室をあげてサポートします！！
+                </p>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* タイムライン */}
-          <div className="relative pl-6 md:pl-0">
-            {/* 縦線 */}
-            <div className="absolute left-6 md:left-6 top-5 bottom-5 w-0.5 bg-gradient-to-b from-navy via-teal to-gold" />
-            
-            <div className="space-y-4">
-              {current.steps.map((step, i) => (
-                <div
-                  key={step.year}
-                  className="reveal group flex gap-5 items-start py-4"
-                  style={{ transitionDelay: `${i * 0.1}s` }}
-                >
-                  {/* ドット */}
-                  <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white border-[3px] border-navy text-center transition-all group-hover:bg-navy group-hover:text-white group-hover:border-teal group-hover:scale-110">
-                    <span className="text-[11px] font-bold leading-tight text-navy group-hover:text-white">
-                      {step.year.split("年目")[0]}<br />年目
-                    </span>
-                  </div>
-                  
-                  {/* カード */}
-                  <div className="flex-1 rounded-xl bg-white border border-border p-5 shadow-sm transition-all group-hover:border-teal-light group-hover:shadow-md">
-                    <span className="inline-block text-[10px] font-bold px-2.5 py-1 rounded bg-navy text-white tracking-wide mb-2">
-                      {step.label}
-                    </span>
-                    <h4 className="font-bold text-navy text-[15px] mb-1.5">{step.title}</h4>
-                    <p className="text-sm text-text-sub leading-relaxed mb-1">{step.desc}</p>
-                    <p className="text-xs text-teal font-medium">{step.place}</p>
-                  </div>
+      {/* 当教室入門後のキャリア形成 */}
+      <section className="bg-off-white py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="reveal">
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-6 h-0.5 bg-gold" />
+              <span className="text-[10px] tracking-[0.25em] text-gold font-bold uppercase">Career Formation</span>
+            </div>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-navy leading-tight mb-8">当教室入門後のキャリア形成</h2>
+          </div>
+
+          {/* キャリアパス図 */}
+          <div className="reveal mb-12">
+            <Image
+              src="/images/career/career-paths.png"
+              alt="当教室入門後のキャリア形成"
+              width={1200}
+              height={600}
+              className="w-full h-auto rounded-xl shadow-lg bg-white p-4 md:p-6"
+            />
+          </div>
+
+          {/* 3つのルート説明 */}
+          <div className="reveal grid md:grid-cols-3 gap-6">
+            {/* 大学教員・がんセンタールート */}
+            <div className="rounded-2xl bg-white border border-border p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-600/10">
+                  <Microscope className="h-6 w-6 text-purple-600" />
                 </div>
-              ))}
+                <div>
+                  <h3 className="font-bold text-navy text-[15px]">大学教員・がんセンタールート</h3>
+                  <p className="text-xs text-text-sub">研究・教育の最前線へ</p>
+                </div>
+              </div>
+              <p className="text-sm text-text-sub leading-relaxed">
+                大学教員・がんセンタースタッフとして、<strong className="text-navy">臨床・研究・教育の最前線</strong>を担当！！
+                海外留学の機会もあります。
+              </p>
+            </div>
+
+            {/* 大規模中核病院ルート */}
+            <div className="rounded-2xl bg-white border border-border p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
+                  <Stethoscope className="h-6 w-6 text-teal" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-navy text-[15px]">大規模中核病院ルート</h3>
+                  <p className="text-xs text-text-sub">専門領域のエキスパートへ</p>
+                </div>
+              </div>
+              <p className="text-sm text-text-sub leading-relaxed">
+                大規模中核病院で、<strong className="text-navy">専門領域を一手に担い、後進の指導にあたる</strong>！！
+              </p>
+            </div>
+
+            {/* 一般市中病院ルート */}
+            <div className="rounded-2xl bg-white border border-border p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/10">
+                  <Building2 className="h-6 w-6 text-gold" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-navy text-[15px]">一般市中病院ルート</h3>
+                  <p className="text-xs text-text-sub">地域医療のリーダーへ</p>
+                </div>
+              </div>
+              <p className="text-sm text-text-sub leading-relaxed">
+                一般市中病院で、<strong className="text-navy">専門領域に加え、消化器全般をレベルアップ</strong>！！
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ロールモデル */}
-      <section className="bg-off-white py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4">
           <div className="reveal">
             <div className="flex items-center gap-2.5 mb-3">
@@ -282,42 +264,39 @@ export default function CareerPage() {
                 message: "子育てと常勤医を両立。結婚・出産後も急性期病院で勤務を続け、子供達に「頑張って働いているのを分かってくれている」と実感。やりたい事を追求することは決して悪いことではありません。",
                 voiceId: "v3",
               },
-            ].map((model) => {
-              const mc = colorMap[model.routeColor]
-              return (
-                <div key={model.name} className="reveal-child overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1.5 hover:shadow-lg hover:border-teal-light">
-                  {/* カードヘッダー */}
-                  <div className="bg-gradient-to-br from-[#0C2340] to-[#163559] p-6 relative overflow-hidden">
-                    <div className="absolute -right-5 -top-5 w-20 h-20 rounded-full border border-white/5" />
-                    <div className="flex items-center gap-4">
-                      <div className={cn("flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal to-teal-light shrink-0")}>
-                        <User className="h-7 w-7 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-bold text-white text-[15px]">{model.name}</p>
-                        <p className="text-xs text-white/50">{model.year} / {model.position}</p>
-                        <span className="inline-block mt-1 text-[10px] font-bold px-2 py-0.5 rounded bg-gold/25 text-gold-light tracking-wide">
-                          {model.route}
-                        </span>
-                      </div>
+            ].map((model) => (
+              <div key={model.name} className="reveal-child overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1.5 hover:shadow-lg hover:border-teal-light">
+                {/* カードヘッダー */}
+                <div className="bg-gradient-to-br from-[#0C2340] to-[#163559] p-6 relative overflow-hidden">
+                  <div className="absolute -right-5 -top-5 w-20 h-20 rounded-full border border-white/5" />
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal to-teal-light shrink-0">
+                      <User className="h-7 w-7 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white text-[15px]">{model.name}</p>
+                      <p className="text-xs text-white/50">{model.year} / {model.position}</p>
+                      <span className="inline-block mt-1 text-[10px] font-bold px-2 py-0.5 rounded bg-gold/25 text-gold-light tracking-wide">
+                        {model.route}
+                      </span>
                     </div>
                   </div>
-                  {/* カードボディ */}
-                  <div className="p-5">
-                    <p className="text-sm leading-relaxed text-text-sub border-l-[3px] border-gold pl-3 italic mb-4">
-                      「{model.message}」
-                    </p>
-                    <Link
-                      href={`/recruit/voice#${model.voiceId}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-teal hover:text-teal-light transition-colors"
-                    >
-                      もっとみる
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
                 </div>
-              )
-            })}
+                {/* カードボディ */}
+                <div className="p-5">
+                  <p className="text-sm leading-relaxed text-text-sub border-l-[3px] border-gold pl-3 italic mb-4">
+                    「{model.message}」
+                  </p>
+                  <Link
+                    href={`/recruit/voice#${model.voiceId}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-teal hover:text-teal-light transition-colors"
+                  >
+                    もっとみる
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

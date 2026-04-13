@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, ChevronRight, Building2, GraduationCap, Microscope, Heart, Users, BookOpen, Globe } from "lucide-react"
+import Image from "next/image"
+import { ArrowRight, ChevronRight, Building2, GraduationCap, Microscope, Heart, Users, BookOpen, Globe, Stethoscope } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
-import { useCountUp } from "@/hooks/use-count-up"
 
 export default function EducationPage() {
   const ref = useScrollReveal()
@@ -54,8 +54,8 @@ export default function EducationPage() {
             </h2>
           </div>
 
-          <div className="reveal mt-10 grid gap-10 md:grid-cols-5">
-            <div className="flex flex-col gap-5 text-[15px] leading-[1.9] text-text-sub md:col-span-3">
+          <div className="reveal mt-10 grid gap-10 lg:grid-cols-2 items-start">
+            <div className="flex flex-col gap-5 text-[15px] leading-[1.9] text-text-sub">
               <p>
                 横浜市立大学医学部の歴史は、明治4年に全国で2番目に開院された洋式病院を起源としています。
                 これが、横浜共立病院、県立十全病院（明治7年）、市立十全病院を経て、
@@ -73,25 +73,48 @@ export default function EducationPage() {
                 <strong className="text-foreground">100名を超える教室員</strong>が診療、研究、教育を精力的に行っています。
               </p>
             </div>
-            <div className="flex flex-col gap-4 md:col-span-2">
-              {[
-                { label: "設立", value: "2009年", sub: "旧第2・第3内科を統合" },
-                { label: "教室員数", value: "100名+", sub: "県内外の関連施設で活躍" },
-                { label: "大学病院", value: "2施設", sub: "附属病院・センター病院" },
-              ].map((item) => (
-                <div key={item.label} className="rounded-xl border border-border bg-card p-5 shadow-sm">
-                  <p className="text-xs font-medium text-muted-foreground">{item.label}</p>
-                  <p className="mt-1 font-serif text-2xl font-bold text-navy">{item.value}</p>
-                  <p className="mt-0.5 text-xs text-text-sub">{item.sub}</p>
-                </div>
-              ))}
+            
+            {/* 教室の成り立ち図 */}
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <Image
+                src="/images/education/department-history.png"
+                alt="横浜市立大学 消化器内科学教室の成り立ち"
+                width={600}
+                height={450}
+                className="w-full h-auto rounded-lg"
+              />
             </div>
+          </div>
+
+          {/* 教室の役割 */}
+          <div className="reveal mt-12 rounded-2xl border border-gold/30 bg-gold/5 p-6 md:p-8">
+            <h3 className="font-serif text-lg font-bold text-navy">教室の役割とは…（消化器内科学教室 規約より）</h3>
+            <ol className="mt-5 space-y-3">
+              {[
+                { num: 1, text: "大学・協力病院における", highlight: "教育、診療、基礎的および臨床的な研究", suffix: "に貢献する。" },
+                { num: 2, text: "", highlight: "教室員の能力向上", suffix: "を目指し、多様な業務機会を与えるため人員配置を行う。" },
+                { num: 3, text: "協力病院の整備拡充に協力し、", highlight: "適切な人員配置", suffix: "を行う。" },
+                { num: 4, text: "教室員の生活安定を目指し、", highlight: "待遇改善の交渉窓口", suffix: "となる。" },
+                { num: 5, text: "地域医療に協力するため、", highlight: "非常勤医の紹介窓口", suffix: "となる。" },
+              ].map((item) => (
+                <li key={item.num} className="flex gap-3 text-sm leading-relaxed text-text-sub">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy text-xs font-bold text-white">
+                    {item.num}
+                  </span>
+                  <span>
+                    {item.text}
+                    <strong className="text-navy">{item.highlight}</strong>
+                    {item.suffix}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
 
       {/* ---- 2. 内科専門医新制度 ---- */}
-      <section className="bg-off-white py-20 md:py-28">
+      <section className="bg-off-white py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="reveal">
             <div className="flex items-center gap-3">
@@ -173,11 +196,22 @@ export default function EducationPage() {
               </p>
             </div>
           </div>
+
+          {/* 神奈川県一般病床数上位20病院の表 */}
+          <div className="reveal mt-10 rounded-2xl border border-border bg-card p-4 shadow-sm overflow-hidden">
+            <Image
+              src="/images/education/hospital-list.png"
+              alt="神奈川県一般病床数上位20病院"
+              width={1200}
+              height={800}
+              className="w-full h-auto"
+            />
+          </div>
         </div>
       </section>
 
       {/* ---- 3. 豊富な専門教育機関 ---- */}
-      <section className="bg-background py-20 md:py-28">
+      <section className="bg-background py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="reveal">
             <div className="flex items-center gap-3">
@@ -252,6 +286,28 @@ export default function EducationPage() {
                 )}
               </div>
             ))}
+          </div>
+
+          {/* 写真ギャラリー */}
+          <div className="reveal mt-12 grid gap-4 md:grid-cols-2">
+            <div className="overflow-hidden rounded-2xl">
+              <Image
+                src="/images/education/endoscopy.jpg"
+                alt="内視鏡検査の様子"
+                width={600}
+                height={400}
+                className="w-full h-64 object-cover"
+              />
+            </div>
+            <div className="overflow-hidden rounded-2xl">
+              <Image
+                src="/images/education/angiography-team.jpg"
+                alt="血管造影室のチーム"
+                width={600}
+                height={400}
+                className="w-full h-64 object-cover"
+              />
+            </div>
           </div>
 
           <div className="reveal mt-8 text-sm leading-relaxed text-text-sub">
@@ -387,13 +443,13 @@ export default function EducationPage() {
             <div className="mt-3 h-0.5 w-12 bg-[#C4923A]" />
           </div>
 
-          <div className="reveal mt-10 grid gap-10 md:grid-cols-2">
+          <div className="reveal mt-10 grid gap-10 lg:grid-cols-2">
             <div className="flex flex-col gap-5 text-[15px] leading-[1.9] text-white/70">
               <p>
                 当教室が存立する背景には、これまで横浜市大の関連施設で消化器内科の発展に携わってきた
                 多くの先生方の存在があります。現在、旧第2内科、旧第3内科、消化器内科学教室のいずれかに
                 所属していた先生を中心として、「消化器内科学教室同門会」が形成されており、
-                <strong className="text-white">266名に及ぶ同門会員</strong>が所属しております。
+                <strong className="text-white">322名に及ぶ同門会員</strong>が所属しております。
               </p>
               <p>
                 また、当教室では、卒後20年以上のベテラン医師、卒後10-20年の中堅医師、
@@ -404,11 +460,17 @@ export default function EducationPage() {
                 現在<strong className="text-white">30名</strong>が各関連施設で切磋琢磨しながら消化器内科医としての道を歩んでおります。
                 これら学年の近い若手医師は、皆様の良き相談相手になってくれる頼れる存在です。
               </p>
+              <p>
+                また、当教室では教室の運営や人事について、大学からのトップダウンの形ではなく、
+                各関連施設の部長を中心とした<strong className="text-white">「運営委員会」</strong>での話し合いにより決定しています。
+                皆様が消化器内科医として目指すべきものが見つかった時、または医師として様々な形で壁にぶつかったときには、
+                各施設の上司だけではなく、教授以下運営委員会を始めとする教室員が協力して、対応させて頂きます。
+              </p>
             </div>
 
             <div className="flex flex-col gap-5">
               {[
-                { value: "266名", label: "同門会員数", icon: Users },
+                { value: "322名", label: "同門会員数", icon: Users },
                 { value: "30名", label: "卒後3-6年目の若手医師", icon: GraduationCap },
               ].map((stat) => (
                 <div key={stat.label} className="flex items-center gap-5 rounded-2xl border border-white/10 bg-white/5 p-6">
@@ -427,59 +489,56 @@ export default function EducationPage() {
                 <p className="mt-3 text-sm leading-relaxed text-white/50">
                   当教室では教室の運営や人事について、大学からのトップダウンの形ではなく、
                   各関連施設の部長を中心とした「運営委員会」での話し合いにより決定しています。
-                  皆様が消化器内科医として目指すべきものが見つかった時、
-                  または医師として様々な形で壁にぶつかったときには、
-                  各施設の上司だけではなく、教授以下運営委員会をはじめとする教室員が協力して対応いたします。
                 </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ---- 締めメッセージ ---- */}
-      <section className="bg-background py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="reveal rounded-2xl border border-[#C4923A]/20 bg-[#C4923A]/5 p-8 md:p-12">
-            <p className="mx-auto max-w-3xl text-center text-[15px] leading-[1.9] text-text-sub">
-              消化器内科学は、人間の生存に欠かせない多くの臓器にまたがっており、重要かつ大変やりがいのある領域です。
-              当教室では、目覚ましい発展を遂げる消化器内科領域の診療・研究に関して、
-              最先端に位置する教育を受けることが可能です。
-              <strong className="text-foreground">
-                ぜひ、当教室へ入門していただき、医師として充実した人生を過ごして頂くことを、教室員一同、心から願っています。
-              </strong>
-            </p>
+          {/* 集合写真 */}
+          <div className="reveal mt-12 grid gap-6 md:grid-cols-2">
+            <div className="overflow-hidden rounded-2xl border border-white/10">
+              <Image
+                src="/images/education/department-group.jpg"
+                alt="教室集合写真"
+                width={800}
+                height={500}
+                className="w-full h-auto object-cover"
+                priority
+              />
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-white/10">
+              <Image
+                src="/images/education/bbq-event.jpg"
+                alt="BBQイベント"
+                width={800}
+                height={500}
+                className="w-full h-auto object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ---- CTA ---- */}
-      <section className="bg-off-white py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="reveal rounded-2xl bg-navy p-8 text-center md:p-12">
-            <h3 className="font-serif text-xl font-bold text-white md:text-2xl text-balance">
-              見学・入局のご相談はお気軽に
-            </h3>
-            <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/60">
-              教室の雰囲気を知りたい方、キャリアについて相談したい方、
-              まずはお気軽にお問い合わせください。
+      {/* ---- 締めのメッセージ ---- */}
+      <section className="bg-gradient-to-b from-off-white to-background py-20 md:py-28">
+        <div className="mx-auto max-w-4xl px-4 text-center lg:px-8">
+          <div className="reveal">
+            <p className="text-[15px] leading-[2] text-text-sub">
+              消化器内科学は、人間の生存に欠かせない多くの臓器にまたがっており、重要かつ大変やりがいのある領域です。
+              当教室では、目覚ましい発展を遂げる消化器内科領域の診療・研究に関して、最先端に位置する教育を受けることが可能です。
+              ぜひ、当教室へ入門していただき、医師として充実した人生を過ごして頂くことを、教室員一同、心から願っています。
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/recruit/visit"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#C4923A] px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#E8B96A] hover:gap-3"
-              >
-                見学・相談を申し込む
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/recruit/career"
-                className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-7 py-3.5 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:bg-white/5 hover:text-white"
-              >
-                キャリアパスを見る
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
+          </div>
+
+          <div className="reveal mt-10">
+            <Link
+              href="/recruit/career"
+              className="group inline-flex items-center gap-2 rounded-full bg-navy px-8 py-4 text-sm font-bold text-white shadow-lg transition-all hover:bg-[#163559] hover:shadow-xl hover:-translate-y-0.5"
+            >
+              キャリアパス・ロールモデルを見る
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
       </section>
