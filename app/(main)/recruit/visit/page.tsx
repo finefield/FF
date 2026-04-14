@@ -137,7 +137,7 @@ ERCP関連では再建腸管に対する小腸鏡を用いたERCPやEUS-HGSを�
     name: "横浜掖済会病院",
     category: "affiliate",
     representatives: [{ name: "内藤 実", title: "病院長" }],
-    message: `当院は1986年（明治29年）創立の病院です。元来は船員の方のための病院でしたが、現在は地域の住民の方々のための病院としての役割を務めています。
+    message: `当院は1986年（明治29年）創立の病院です。元来は船員の方のための病���でしたが、現在は地域の住民の方々のための病院としての役割を務めています。
 
 病床数は151床（3病棟）でそのうちの1病棟を内科が担当しています。診療科は他に外科と整形外科と眼科があり、麻酔科も含めてすべての科が横浜市大の関連施設となっています。
 
@@ -335,7 +335,7 @@ export default function VisitPage() {
           </div>
 
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            {/* 第1回 教室説明会 */}
+            {/* 第2回 教室説明会 */}
             <div className="reveal rounded-2xl border-2 border-[#C4923A]/30 bg-gradient-to-b from-[#C4923A]/5 to-transparent p-8">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#C4923A]/15">
@@ -348,11 +348,12 @@ export default function VisitPage() {
                 </div>
               </div>
               <h3 className="mt-5 font-serif text-xl font-bold text-foreground">
-                第1回 教室説明会
+                第2回 教室説明会
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 消化器内科医を志している方、当教室に少しでも興味がある方は、この機会にぜひご参加ください。
                 説明会の後半で専攻医の先生方に気軽に質問いただけるお時間も用意しております。
+                また、説明会後には懇親会を予定しています。
               </p>
 
               <div className="mt-6 space-y-3">
@@ -360,7 +361,7 @@ export default function VisitPage() {
                   <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-[#C4923A]" />
                   <div>
                     <p className="text-sm font-semibold text-foreground">開催日時</p>
-                    <p className="text-sm text-muted-foreground">2026年3月19日（木）19:00〜</p>
+                    <p className="text-sm text-muted-foreground">2026年5月22日（金）19:00〜</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -408,7 +409,7 @@ export default function VisitPage() {
                 </div>
               </div>
               <h3 className="mt-5 font-serif text-xl font-bold text-foreground">
-                第2回 教室オンライン相談会
+                第4回 教室オンライン相談会
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 こちらは説明会よりは小規模で開催させていただいており、毎月開催しております。
@@ -420,7 +421,7 @@ export default function VisitPage() {
                   <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-[#2A8B8B]" />
                   <div>
                     <p className="text-sm font-semibold text-foreground">開催日時</p>
-                    <p className="text-sm text-muted-foreground">2026年2月19日（木）19:00〜</p>
+                    <p className="text-sm text-muted-foreground">2026年4月22日（火）19:00〜</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

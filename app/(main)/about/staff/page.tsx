@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronRight, ArrowRight, Building2 } from "lucide-react"
+import { ChevronRight, ArrowRight, Building2, User } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
 
 /* ---- 教授陣 ---- */
@@ -19,12 +19,14 @@ const professors = [
     year: "H08",
     title: "教授",
     affiliation: "医学部 医学教育学",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/INAMORI2-mXRA4Wd0G3QqXAjZnGU6IZ8emVxCGy.jpg",
   },
   {
     name: "森本 学",
     year: "H01",
     title: "診療教授",
     affiliation: "附属市民総合医療センター 消化器病センター 部長・肝疾患医療センター長",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/morimoto_manabu-9ZeesYS6YOyBnWMncch9O7R9zOKCAC.jpg",
   },
 ]
 
@@ -35,6 +37,7 @@ const associateProfessors = [
     year: "H05",
     title: "准教授",
     affiliation: "附属市民総合医療センター 炎症性腸疾患（IBD）センター 担当部長",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/center_ibd_reiko_kunisaki-222x300-wXvN2SyM9HpkhgOccJMPXy924R6OZQ.jpg",
   },
   {
     name: "野﨑 昭人",
@@ -42,12 +45,14 @@ const associateProfessors = [
     title: "准教授",
     affiliation: "附属市民総合医療センター 輸血部 部長・消化器病センター・臨床研究部 部長・治験管理室・次世代臨床研究センター",
     specialty: "肝疾患",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/center_digestive_nozaki_akito-240x300-O6IoPmD6weoqBbsCYi0GslU3suzfvi.jpg",
   },
   {
     name: "平澤 欣吾",
     year: "H09",
     title: "准教授",
     affiliation: "附属市民総合医療センター 消化器病センター・内視鏡部 部長",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hirasawa-5I0C6whj5sUTOo6nWBOXbZMtHyPnFn.png",
   },
 ]
 
@@ -58,12 +63,14 @@ const lecturers = [
     year: "H07",
     affiliation: "附属病院 臨床検査部 部長",
     specialty: "肝疾患",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kirikoshi-9NQKsfea1Q4vOXVtGVxbCTp75FUZ4O.jpg",
   },
   {
     name: "三輪 治生",
     year: "H18",
     affiliation: "附属市民総合医療センター 消化器病センター",
     specialty: "肝胆膵疾患",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/center_digestive_miwa_haruo-250x300-p6n8uu9HFtF1lPWnGHvJO0rWkpDAc1.jpg",
   },
   {
     name: "須江 聡一郎",
@@ -80,7 +87,7 @@ const assistantProfessors = [
   { name: "金子 裕明", year: "H19", affiliation: "附属病院", specialty: "消化管疾患" },
   { name: "合田 賢弘", year: "H20", affiliation: "附属病院", specialty: "肝胆膵疾患" },
   { name: "小林 亮介", year: "H20", affiliation: "附属市民総合医療センター 消化器病センター・内視鏡部", specialty: "消化管疾患" },
-  { name: "池田 良輔", year: "H22", affiliation: "附属病院", specialty: "消化管疾患" },
+  { name: "池田 良輔", year: "H22", affiliation: "附属病院", specialty: "消化管疾患", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/55_ikeda_ryosukeikeda_ryosuke_2Z2A2020_1000px-edited-300x300-9zpXmkJLiuVVxxmzsHWEvfJqWduu0H.jpg" },
   { name: "岩田 悠里", year: "H22", affiliation: "臨床研修センター" },
   { name: "小宮山 哲史", year: "H22", affiliation: "附属市民総合医療センター 化学療法部・消化器病センター" },
   { name: "西尾 匡史", year: "H22", affiliation: "附属市民総合医療センター 消化器病センター・内視鏡部", specialty: "消化管疾患" },
@@ -242,9 +249,21 @@ export default function StaffPage() {
                 key={p.name}
                 className="reveal-child group rounded-2xl border border-teal/20 bg-card p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal/10">
-                  <span className="font-serif text-xl text-teal">{p.name.charAt(0)}</span>
-                </div>
+                {p.image ? (
+                  <div className="mx-auto h-16 w-16 overflow-hidden rounded-full border-2 border-teal/30">
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      width={64}
+                      height={64}
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
+                ) : (
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal/10">
+                    <User className="h-8 w-8 text-teal" />
+                  </div>
+                )}
                 <span className="mt-4 inline-block rounded-full bg-teal/10 px-3 py-1 text-xs font-bold text-teal">
                   {p.title}
                 </span>
@@ -278,9 +297,21 @@ export default function StaffPage() {
                 key={l.name}
                 className="reveal-child flex items-start gap-4 rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-navy/8">
-                  <span className="font-serif text-lg text-navy/60">{l.name.charAt(0)}</span>
-                </div>
+                {l.image ? (
+                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-navy/20">
+                    <Image
+                      src={l.image}
+                      alt={l.name}
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-navy/8">
+                    <User className="h-7 w-7 text-navy/60" />
+                  </div>
+                )}
                 <div className="min-w-0">
                   <span className="inline-block rounded bg-navy/10 px-2 py-0.5 text-[10px] font-bold text-navy">
                     講師
@@ -315,9 +346,21 @@ export default function StaffPage() {
                 key={a.name}
                 className="reveal-child flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:shadow-md"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal/8">
-                  <span className="font-serif text-sm text-teal/70">{a.name.charAt(0)}</span>
-                </div>
+                {a.image ? (
+                  <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-teal/20">
+                    <Image
+                      src={a.image}
+                      alt={a.name}
+                      width={40}
+                      height={40}
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal/8">
+                    <User className="h-5 w-5 text-teal/70" />
+                  </div>
+                )}
                 <div className="min-w-0">
                   <p className="text-sm font-bold text-foreground">{a.name}</p>
                   <p className="text-[11px] text-muted-foreground">卒年：{a.year}</p>
@@ -350,7 +393,7 @@ export default function StaffPage() {
                 className="reveal-child flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 transition-all hover:shadow-sm"
               >
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy/6">
-                  <span className="text-xs text-navy/50">{g.name.charAt(0)}</span>
+                  <User className="h-4 w-4 text-navy/50" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-foreground">{g.name}</p>

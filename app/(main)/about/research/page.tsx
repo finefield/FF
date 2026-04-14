@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ChevronRight, FlaskConical, Microscope, Dna, Beaker, TestTube, ExternalLink } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
 
@@ -68,8 +69,8 @@ export default function ResearchIntroPage() {
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   className={`flex items-center gap-3 rounded-xl px-8 py-4 text-base font-medium transition-all ${isActive
-                      ? "bg-navy text-white shadow-lg scale-105"
-                      : "bg-off-white text-text-sub hover:bg-navy/10 border border-border"
+                    ? "bg-navy text-white shadow-lg scale-105"
+                    : "bg-off-white text-text-sub hover:bg-navy/10 border border-border"
                     }`}
                 >
                   <Icon className="h-5 w-5" />
@@ -81,27 +82,75 @@ export default function ResearchIntroPage() {
         </div>
       </section>
 
-      {/* ---- グループタブ ---- */}
-      <section className="bg-off-white py-8">
+      {/* ---- グループカード ---- */}
+      <section className="bg-off-white py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="reveal flex flex-wrap justify-center gap-3">
-            {groups.map((group) => {
-              const Icon = group.icon
-              const isActive = activeGroup === group.id
-              return (
-                <button
-                  key={group.id}
-                  onClick={() => setActiveGroup(group.id)}
-                  className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all ${isActive
-                      ? "bg-teal text-white shadow-md"
-                      : "bg-white text-text-sub hover:bg-teal/10 border border-border"
-                    }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {group.name}
-                </button>
-              )
-            })}
+          <div className="reveal grid gap-6 md:grid-cols-3">
+            {/* 肝臓グループ */}
+            <button
+              onClick={() => setActiveGroup("liver")}
+              className={`group relative overflow-hidden rounded-2xl p-8 text-center transition-all hover:scale-[1.02] hover:shadow-xl ${activeGroup === "liver"
+                ? "ring-4 ring-white/50 shadow-2xl"
+                : "hover:ring-2 hover:ring-white/30"
+                }`}
+              style={{ background: "linear-gradient(to bottom, #1a2332, #2d3a4d)" }}
+            >
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liver-qnlZtQ3XUvbPiTOVFTzhHLHhqbVhx5.png"
+                  alt="肝臓"
+                  width={80}
+                  height={80}
+                  className="h-20 w-20 object-contain"
+                />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-white mb-1">肝臓グループ</h3>
+              <p className="text-xs tracking-[0.15em] text-white/50 uppercase">Liver Group</p>
+            </button>
+
+            {/* 胆膵グループ */}
+            <button
+              onClick={() => setActiveGroup("biliary")}
+              className={`group relative overflow-hidden rounded-2xl p-8 text-center transition-all hover:scale-[1.02] hover:shadow-xl ${activeGroup === "biliary"
+                ? "ring-4 ring-white/50 shadow-2xl"
+                : "hover:ring-2 hover:ring-white/30"
+                }`}
+              style={{ background: "linear-gradient(to bottom, #2d3a4d, #3d4a5d)" }}
+            >
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/birinary_pan-96MJ0gJS5S2ucKPsJTnH9kwEFnyXIN.png"
+                  alt="胆嚢・膵臓"
+                  width={80}
+                  height={80}
+                  className="h-20 w-20 object-contain"
+                />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-white mb-1">胆膵グループ</h3>
+              <p className="text-xs tracking-[0.15em] text-white/50 uppercase">Bile & Pancreas Group</p>
+            </button>
+
+            {/* 消化管グループ */}
+            <button
+              onClick={() => setActiveGroup("gi")}
+              className={`group relative overflow-hidden rounded-2xl p-8 text-center transition-all hover:scale-[1.02] hover:shadow-xl ${activeGroup === "gi"
+                ? "ring-4 ring-white/50 shadow-2xl"
+                : "hover:ring-2 hover:ring-white/30"
+                }`}
+              style={{ background: "linear-gradient(to bottom, #1a3a3a, #2a4a4a)" }}
+            >
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gastro-zHezX86Iaa3POo6ovjfnQ4zziktalm.png"
+                  alt="消化管"
+                  width={80}
+                  height={80}
+                  className="h-20 w-20 object-contain"
+                />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-white mb-1">消化管グループ</h3>
+              <p className="text-xs tracking-[0.15em] text-white/50 uppercase">Gastrointestinal Tract Group</p>
+            </button>
           </div>
         </div>
       </section>
@@ -156,7 +205,7 @@ function ClinicalLiver() {
     <div className="space-y-6">
       <div className="reveal">
         <h3 className="font-serif text-xl font-bold text-navy md:text-2xl flex items-center gap-3">
-          <FlaskConical className="h-6 w-6 text-teal" />
+          <Microscope className="h-6 w-6 text-teal" />
           臨床研究 - 肝臓グループ
         </h3>
       </div>
@@ -212,9 +261,9 @@ function ClinicalLiver() {
               {/* 図表 */}
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 <div>
-                  <a 
-                    href="/images/research-intro/patient-characteristics.png" 
-                    target="_blank" 
+                  <a
+                    href="/images/research-intro/patient-characteristics.png"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="block cursor-zoom-in hover:opacity-90 transition-opacity"
                   >
@@ -227,9 +276,9 @@ function ClinicalLiver() {
                   <p className="mt-1 text-xs text-muted-foreground text-center">患者背景（N=1439）</p>
                 </div>
                 <div>
-                  <a 
-                    href="/images/research-intro/svr12-analysis.png" 
-                    target="_blank" 
+                  <a
+                    href="/images/research-intro/svr12-analysis.png"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="block cursor-zoom-in hover:opacity-90 transition-opacity"
                   >
@@ -242,9 +291,9 @@ function ClinicalLiver() {
                   <p className="mt-1 text-xs text-muted-foreground text-center">SVR12達成率</p>
                 </div>
                 <div>
-                  <a 
-                    href="/images/research-intro/non-svr12-factors.png" 
-                    target="_blank" 
+                  <a
+                    href="/images/research-intro/non-svr12-factors.png"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="block cursor-zoom-in hover:opacity-90 transition-opacity"
                   >
@@ -286,7 +335,7 @@ function ClinicalLiver() {
                   </span>
                 </li>
                 <li>
-                  <span className="text-text-sub">3次元造影超音波の肝腫瘍診断と治療効果判定における有用性</span>
+                  <span className="text-text-sub">3次元��影超音波の肝腫瘍診断と治療効果判定における有用性</span>
                   <span className="ml-2 text-xs">
                     <a href="https://www.ncbi.nlm.nih.gov/pubmed/20440851" target="_blank" rel="noopener noreferrer" className="text-teal hover:underline">1</a>,{" "}
                     <a href="https://www.ncbi.nlm.nih.gov/pubmed/19361941" target="_blank" rel="noopener noreferrer" className="text-teal hover:underline">2</a>,{" "}
@@ -371,7 +420,7 @@ function ClinicalLiver() {
               </ul>
             </div>
 
-            {/* 造影超音波による膵腫瘍、胆嚢病変の鑑別診断 */}
+            {/* 造影��音波による膵腫瘍、胆嚢病変の���別診断 */}
             <div className="bg-off-white rounded-lg p-4">
               <span className="text-text-sub text-sm">造影超音波による膵腫瘍、胆嚢病変の鑑別診断</span>
               <span className="ml-2 text-xs">
@@ -426,7 +475,7 @@ function ClinicalLiver() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-teal">⑤</span>
-              <span>体幹部定位放射線治療とラジオ波熱凝固療法の局所再発率の比較</span>
+              <span>体幹部定位放射���治療とラジオ波熱凝固療法の局所再発率の比較</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-teal">⑥</span>
@@ -464,9 +513,9 @@ function ClinicalBiliary() {
         <ul className="space-y-4">
           {/* JCOG1202 */}
           <li className="bg-off-white rounded-lg p-4">
-            <a 
-              href="http://www.jcog.jp/document/1202.pdf" 
-              target="_blank" 
+            <a
+              href="http://www.jcog.jp/document/1202.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-600 underline hover:text-emerald-500 text-sm font-medium"
             >
@@ -476,27 +525,27 @@ function ClinicalBiliary() {
               化学療法未治療薬の遠隔転移を有する膵癌に対するL-OHP+CPT-11+5FU/l-LV併用療法 modified regimen（mFFX）の第II相試験
             </p>
           </li>
-          
+
           {/* JCOG1113 */}
           <li className="bg-off-white rounded-lg p-4">
-            <a 
-              href="http://www.jcog.jp/document/1113.pdf" 
-              target="_blank" 
+            <a
+              href="http://www.jcog.jp/document/1113.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-600 underline hover:text-emerald-500 text-sm font-medium"
             >
-              進行胆道癌を対象としたゲムシタビン+シスプラチン併用療法（GC療法）とゲムシタビン+S-1併用療法（GS療法）の第III相比較試験（JCOG1113）の附随研究
+              進行胆道����を対象としたゲムシタビン+シスプラチン併用療法（GC療法）とゲムシタビン+S-1併用療法（GS療法）の第III相比較試験（JCOG1113）の附随研究
             </a>
             <p className="text-sm leading-[1.8] text-text-sub mt-2">
               良悪性胆管狭窄に対する胆管内埋め込み型プラスチックステントの有用性と安全性についての多施設共同前向き研究
             </p>
           </li>
-          
+
           {/* JCOG1213 */}
           <li className="bg-off-white rounded-lg p-4">
-            <a 
-              href="http://www.jcog.jp/document/1213.pdf" 
-              target="_blank" 
+            <a
+              href="http://www.jcog.jp/document/1213.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-600 underline hover:text-emerald-500 text-sm font-medium"
             >
@@ -506,12 +555,12 @@ function ClinicalBiliary() {
               膵癌・乳癌・卵巣癌・前立腺癌いずれかの家族歴を有する、または、乳癌・卵巣癌・前立腺癌いずれかの既往歴を有する、遠隔転移を伴う膵癌を対象としたゲムシタビン/オキサリプラチン療法（GEMOX療法）の多施設共同第II相試験
             </p>
           </li>
-          
+
           {/* JCOG1407 */}
           <li className="bg-off-white rounded-lg p-4">
-            <a 
-              href="http://www.jcog.jp/document/1407.pdf" 
-              target="_blank" 
+            <a
+              href="http://www.jcog.jp/document/1407.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-600 underline hover:text-emerald-500 text-sm font-medium"
             >
@@ -522,12 +571,12 @@ function ClinicalBiliary() {
               <li>・切除不能・再発膵腺扁平上皮癌に対する化学療法の治療成績に関する多施設共同後ろ向き観察研究</li>
             </ul>
           </li>
-          
+
           {/* JCOG1202A1 */}
           <li className="bg-off-white rounded-lg p-4">
-            <a 
-              href="http://www.jcog.jp/general/privacy/notice_1202A1_20170524.pdf" 
-              target="_blank" 
+            <a
+              href="http://www.jcog.jp/general/privacy/notice_1202A1_20170524.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-600 underline hover:text-emerald-500 text-sm font-medium"
             >
@@ -552,7 +601,7 @@ function ClinicalGI() {
     <div className="space-y-6">
       <div className="reveal">
         <h3 className="font-serif text-xl font-bold text-navy md:text-2xl flex items-center gap-3">
-          <Dna className="h-6 w-6 text-blue-600" />
+          <Microscope className="h-6 w-6 text-blue-600" />
           臨床研究 - 消化管グループ
         </h3>
       </div>
@@ -590,7 +639,7 @@ function ClinicalGI() {
               </li>
               <li>
                 <a href="https://pubmed.ncbi.nlm.nih.gov/28566587/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-500">
-                  ヘリコバクター・ピロリ除菌治療 多施設前向きコホート研究（文献5）
+                  ヘリコバクター��ピロリ除菌治療 多施設前向きコホート研究（文献5）
                 </a>
               </li>
               <li>
@@ -736,7 +785,7 @@ function BasicLiver() {
     <div className="space-y-6">
       <div className="reveal">
         <h3 className="font-serif text-xl font-bold text-navy md:text-2xl flex items-center gap-3">
-          <FlaskConical className="h-6 w-6 text-teal" />
+          <Microscope className="h-6 w-6 text-teal" />
           基礎研究 - 肝臓グループ
         </h3>
       </div>
@@ -996,7 +1045,7 @@ function BasicGI() {
     <div className="space-y-6">
       <div className="reveal">
         <h3 className="font-serif text-xl font-bold text-navy md:text-2xl flex items-center gap-3">
-          <Dna className="h-6 w-6 text-blue-600" />
+          <Microscope className="h-6 w-6 text-blue-600" />
           基礎研究 - 消化管グループ
         </h3>
       </div>
