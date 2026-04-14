@@ -8,9 +8,9 @@ import { siteConfig } from "@/lib/data/site-data"
 const events = [
   {
     icon: Calendar,
-    title: "2026年度 教室説明会（第1回）",
-    date: "2026年5月10日(土) 14:00〜",
-    place: "横浜市立大学 医学部棟 3F 講堂",
+    title: "2026年度 教室説明会（第2回）",
+    date: "    date: "2026年5月22日(金) 19:00〜",
+    place: "横浜市立大学みなとみらいサテライトキャンパス　横浜ランドマークタワー7F",
     status: "申込受付中",
   },
   {
