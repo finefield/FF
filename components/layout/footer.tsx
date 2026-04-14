@@ -97,7 +97,7 @@ export function Footer() {
         <div className="mt-14 flex flex-col items-center gap-4 border-t border-white/10 pt-8 md:flex-row md:justify-between">
           <div className="flex gap-4 text-xs text-white/30">
             <Link href="/privacy" className="transition-colors hover:text-white/60">プライバシーポリシー</Link>
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white/60">Facebook</a>
+            <a href="https://www.facebook.com/GastroYCU/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white/60">Facebook</a>
           </div>
           <p className="text-xs text-white/25">
             &copy; {new Date().getFullYear()} {siteConfig.name}
