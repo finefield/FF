@@ -409,7 +409,7 @@ export default function VisitPage() {
                 </div>
               </div>
               <h3 className="mt-5 font-serif text-xl font-bold text-foreground">
-                第4回 教室オンライン相談会
+                第3回 教室オンライン相談会
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 こちらは説明会よりは小規模で開催させていただいており、毎月開催しております。
