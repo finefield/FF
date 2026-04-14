@@ -90,7 +90,7 @@ export function EventSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/news"
+                  href="/recruit/visit"
                   className="flex items-center justify-center gap-2 rounded-lg border border-white/20 px-5 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-white/5 hover:text-white"
                 >
                   説明会スケジュールを見る
