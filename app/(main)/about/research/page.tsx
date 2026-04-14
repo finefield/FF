@@ -1,10 +1,10 @@
 "use client"
 
-// 研究紹介ページ - 臨床研究・基礎研究
+// 研究紹介ページ - 肝臓・胆膵・消化管グループ
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronRight, FlaskConical, Microscope, Dna, Beaker, TestTube, ExternalLink, X } from "lucide-react"
+import { ChevronRight, FlaskConical, Microscope, Dna, Beaker, TestTube, ExternalLink } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
 
 type ResearchCategory = "clinical" | "basic"
@@ -24,7 +24,6 @@ const groups = [
 export default function ResearchIntroPage() {
   const [activeCategory, setActiveCategory] = useState<ResearchCategory>("clinical")
   const [activeGroup, setActiveGroup] = useState<ResearchGroup>("liver")
-  const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null)
   const ref = useScrollReveal([activeCategory, activeGroup])
 
   return (
@@ -160,7 +159,7 @@ export default function ResearchIntroPage() {
       {/* ---- 研究内容 ---- */}
       <section className="bg-off-white py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          {activeCategory === "clinical" && activeGroup === "liver" && <ClinicalLiver setModalImage={setModalImage} />}
+          {activeCategory === "clinical" && activeGroup === "liver" && <ClinicalLiver />}
           {activeCategory === "clinical" && activeGroup === "biliary" && <ClinicalBiliary />}
           {activeCategory === "clinical" && activeGroup === "gi" && <ClinicalGI />}
           {activeCategory === "basic" && activeGroup === "liver" && <BasicLiver />}
@@ -194,34 +193,7 @@ export default function ResearchIntroPage() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* 画像モーダル */}
-      {modalImage && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-          onClick={() => setModalImage(null)}
-        >
-          <button
-            onClick={() => setModalImage(null)}
-            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
-            aria-label="閉じる"
-          >
-            <X className="h-6 w-6" />
-          </button>
-          <div
-            className="relative max-h-[90vh] max-w-[90vw]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={modalImage.src}
-              alt={modalImage.alt}
-              className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg"
-            />
-            <p className="mt-2 text-center text-sm text-white/80">{modalImage.alt}</p>
-          </div>
-        </div>
-      )}
+      </section>
     </div>
   )
 }
@@ -229,7 +201,7 @@ export default function ResearchIntroPage() {
 /* ====================================
    臨床研究 - 肝臓グループ
    ==================================== */
-function ClinicalLiver({ setModalImage }: { setModalImage: (image: { src: string; alt: string } | null) => void }) {
+function ClinicalLiver() {
   return (
     <div className="space-y-6">
       <div className="reveal">
@@ -264,7 +236,7 @@ function ClinicalLiver({ setModalImage }: { setModalImage: (image: { src: string
               </p>
               <p className="text-xs text-muted-foreground mt-0.5">Antivir Ther. 2010;15(8):1179-83. doi: 10.3851/IMP1668.</p>
               <p className="text-sm leading-[1.8] text-text-sub mt-3">
-                ジェノタイプ2のC型肝炎においてIL28B SNPがPEG-IFNリバビリン併用療法の治療効果に影響するハイドロキシウレア経口投与でHCVの複製が抑制されることを国内第1相試験で示しまし���。
+                ジェノタイプ2のC型肝炎においてIL28B SNPがPEG-IFNリバビリン併用療法の治療効果に影響するハイドロキシウレア経口投与でHCVの複製が抑制されることを国内第1相試験で示しました。
               </p>
             </div>
 
@@ -290,42 +262,27 @@ function ClinicalLiver({ setModalImage }: { setModalImage: (image: { src: string
               {/* 図表 */}
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 <div>
-                  <button
-                    onClick={() => setModalImage({ src: "/images/research-intro/patient-characteristics.png", alt: "患者背景（N=1439）" })}
-                    className="block w-full cursor-zoom-in hover:opacity-90 transition-opacity"
-                  >
-                    <img
-                      src="/images/research-intro/patient-characteristics.png"
-                      alt="Background characteristics of the patients"
-                      className="w-full h-auto rounded-lg border border-border"
-                    />
-                  </button>
+                  <img
+                    src="/images/research-intro/patient-characteristics.png"
+                    alt="Background characteristics of the patients"
+                    className="w-full h-auto rounded-lg border border-border"
+                  />
                   <p className="mt-1 text-xs text-muted-foreground text-center">患者背景（N=1439）</p>
                 </div>
                 <div>
-                  <button
-                    onClick={() => setModalImage({ src: "/images/research-intro/svr12-analysis.png", alt: "SVR12達成率" })}
-                    className="block w-full cursor-zoom-in hover:opacity-90 transition-opacity"
-                  >
-                    <img
-                      src="/images/research-intro/svr12-analysis.png"
-                      alt="SVR12 analysis"
-                      className="w-full h-auto rounded-lg border border-border"
-                    />
-                  </button>
+                  <img
+                    src="/images/research-intro/svr12-analysis.png"
+                    alt="SVR12 analysis"
+                    className="w-full h-auto rounded-lg border border-border"
+                  />
                   <p className="mt-1 text-xs text-muted-foreground text-center">SVR12達成率</p>
                 </div>
                 <div>
-                  <button
-                    onClick={() => setModalImage({ src: "/images/research-intro/non-svr12-factors.png", alt: "non-SVR12関連因子の解析" })}
-                    className="block w-full cursor-zoom-in hover:opacity-90 transition-opacity"
-                  >
-                    <img
-                      src="/images/research-intro/non-svr12-factors.png"
-                      alt="Analyses of factors associated with non-SVR12"
-                      className="w-full h-auto rounded-lg border border-border"
-                    />
-                  </button>
+                  <img
+                    src="/images/research-intro/non-svr12-factors.png"
+                    alt="Analyses of factors associated with non-SVR12"
+                    className="w-full h-auto rounded-lg border border-border"
+                  />
                   <p className="mt-1 text-xs text-muted-foreground text-center">non-SVR12関連因子の解析</p>
                 </div>
               </div>
@@ -358,7 +315,7 @@ function ClinicalLiver({ setModalImage }: { setModalImage: (image: { src: string
                   </span>
                 </li>
                 <li>
-                  <span className="text-text-sub">3次元��影超音波の肝腫瘍診断と治療効果判定における有用性</span>
+                  <span className="text-text-sub">3次元造影超音波の肝腫瘍診断と治療効果判定における有用性</span>
                   <span className="ml-2 text-xs">
                     <a href="https://www.ncbi.nlm.nih.gov/pubmed/20440851" target="_blank" rel="noopener noreferrer" className="text-teal hover:underline">1</a>,{" "}
                     <a href="https://www.ncbi.nlm.nih.gov/pubmed/19361941" target="_blank" rel="noopener noreferrer" className="text-teal hover:underline">2</a>,{" "}
@@ -572,7 +529,7 @@ function ClinicalBiliary() {
               rel="noopener noreferrer"
               className="text-emerald-600 underline hover:text-emerald-500 text-sm font-medium"
             >
-              JCOG1213: 消化管・肝胆膵原発の切除不能・再発神経内分泌癌（NEC）を対象としたエトポシド/シスプラチン（EP）療法とイリノテカン/シスプラチン（IP）療法のランダム化比較試験
+              JCOG1213: 消化管・肝胆膵原発の切除不能・再発神経内分泌癌（NEC������対象としたエトポシド/シスプラチン（EP）療法とイリノテカン/シスプラチン（IP）療法のランダム化比較試験
             </a>
             <p className="text-sm leading-[1.8] text-text-sub mt-2">
               膵癌・乳癌・卵巣癌・前立腺癌いずれかの家族歴を有する、または、乳癌・卵巣癌・前立腺癌いずれかの既往歴を有する、遠隔転移を伴う膵癌を対象としたゲムシタビン/オキサリプラチン療法（GEMOX療法）の多施設共同第II相試験
@@ -662,7 +619,7 @@ function ClinicalGI() {
               </li>
               <li>
                 <a href="https://pubmed.ncbi.nlm.nih.gov/28566587/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-500">
-                  ヘリコバクター��ピロリ除菌治療 多施設前向きコホート研究（文献5）
+                  ヘリコバクター・ピロリ除菌治療 多施設前向きコホート研究（文献5）
                 </a>
               </li>
               <li>
@@ -767,7 +724,7 @@ function ClinicalGI() {
           <div className="bg-off-white rounded-lg p-4">
             <h6 className="font-medium text-sm text-navy mb-3">現在実施中の研究</h6>
             <ul className="text-sm text-text-sub space-y-2 list-decimal list-inside">
-              <li>胃細菌叢メタゲノム解析による尿素呼気試験陽性・便ピロリ抗原���査陰性の原因検索</li>
+              <li>胃細菌叢メタゲノム解析による尿素呼気試験陽性・便ピロリ抗原検査陰性の原因検索</li>
               <li>早期胃癌内視鏡治療後の内視鏡的胃炎における胃細菌叢の検討</li>
               <li>未分化型胃癌の発生機序に関する免疫組織化学的及び遺伝子学的検討</li>
             </ul>
@@ -789,7 +746,7 @@ function ClinicalGI() {
               </li>
               <li>
                 <a href="https://jrct.niph.go.jp/latest-detail/jRCTs031230207" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-500">
-                  ボノプラザン、メトロニダゾール、シタフロキサシンでの胃細菌叢除菌による胃癌抑制効果を腸上皮化生改善により評価する探索的介入試験（jRCTs031230207）
+                  ��ノプラザン、メトロニダゾール、シタフロキサシンでの胃細菌叢除菌による胃癌抑制効果を腸上皮化生改善により評価する探索的介入試験（jRCTs031230207）
                 </a>
               </li>
             </ul>
@@ -1081,7 +1038,7 @@ function BasicGI() {
           <div className="bg-off-white rounded-lg p-4">
             <h5 className="font-medium text-sm text-navy mb-3">ISX（intestine specific homeobox）の腸上皮化生及び胃発癌における役割</h5>
             <p className="text-sm text-text-sub">
-              腸上皮化生は胃癌の前癌病変として知られ��います。ISXの発現と機能を解析し、胃発癌における役割を明らかにする研究を行っています。
+              腸上皮化生は胃癌の前癌病変として知られています。ISXの発現と機能を解析し、胃発癌における役割を明らかにする研究を行っています。
             </p>
           </div>
 
@@ -1116,7 +1073,7 @@ function BasicGI() {
           <div className="bg-off-white rounded-lg p-4">
             <h5 className="font-medium text-sm text-navy mb-3">次世代型シークエンサー解析を用いた新規胃癌モデルマウスの創出</h5>
             <p className="text-sm text-text-sub leading-[1.8] mb-4">
-              次世代型シークエンサーを用いて早期胃癌組織・進行胃癌組織、及び背景胃粘膜に対する網羅的遺伝子解析を行うことで胃発癌に重要なdriver mutationを明らかにするとともに、それらの背景間質組織の解析から腫瘍促進的に働く間質環境因子���同定を試みます。更には、それらを外挿することで、pre-clinicalな新規胃癌モデルマウスの創出を行います。
+              次世代型シークエンサーを用いて早期胃癌組織・進行胃癌組織、および背景胃粘膜に対する網羅的遺伝子解析を行うことで胃発癌に重要なdriver mutationを明らかにするとともに、それらの背景間質組織の解析から腫瘍促進的に働く間質環境因子の同定を試みます。更には、それらを外挿することで、pre-clinicalな新規胃癌モデルマウスの創出を行います。
             </p>
             <div className="mt-4">
               <img

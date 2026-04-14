@@ -1,3 +1,4 @@
+// 横浜市立大学 消化器内科学教室 - TOPページ
 import { HeroSection } from "@/components/home/hero-section"
 import { StatsSection } from "@/components/home/stats-section"
 import { RecruitFocusSection } from "@/components/home/recruit-focus-section"
