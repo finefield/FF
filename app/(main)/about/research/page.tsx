@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronRight, FlaskConical, Microscope, Dna, Beaker, TestTube, ExternalLink } from "lucide-react"
+import { ChevronRight, FlaskConical, Microscope, Dna, Beaker, TestTube, ExternalLink, X } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-animation"
 
 type ResearchCategory = "clinical" | "basic"
@@ -23,6 +23,7 @@ const groups = [
 export default function ResearchIntroPage() {
   const [activeCategory, setActiveCategory] = useState<ResearchCategory>("clinical")
   const [activeGroup, setActiveGroup] = useState<ResearchGroup>("liver")
+  const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null)
   const ref = useScrollReveal([activeCategory, activeGroup])
 
   return (
@@ -192,8 +193,37 @@ export default function ResearchIntroPage() {
             </div>
           </div>
         </div>
-      </section>
     </div>
+
+      {/* 画像モーダル */ }
+  {
+    modalImage && (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+        onClick={() => setModalImage(null)}
+      >
+        <button
+          onClick={() => setModalImage(null)}
+          className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+          aria-label="閉じる"
+        >
+          <X className="h-6 w-6" />
+        </button>
+        <div
+          className="relative max-h-[90vh] max-w-[90vw]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img
+            src={modalImage.src}
+            alt={modalImage.alt}
+            className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg"
+          />
+          <p className="mt-2 text-center text-sm text-white/80">{modalImage.alt}</p>
+        </div>
+      </div>
+    )
+  }
+    </div >
   )
 }
 
@@ -261,48 +291,42 @@ function ClinicalLiver() {
               {/* 図表 */}
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 <div>
-                  <a
-                    href="/images/research-intro/patient-characteristics.png"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block cursor-zoom-in hover:opacity-90 transition-opacity"
+                  <button
+                    onClick={() => setModalImage({ src: "/images/research-intro/patient-characteristics.png", alt: "患者背景（N=1439）" })}
+                    className="block w-full cursor-zoom-in hover:opacity-90 transition-opacity"
                   >
                     <img
                       src="/images/research-intro/patient-characteristics.png"
                       alt="Background characteristics of the patients"
                       className="w-full h-auto rounded-lg border border-border"
                     />
-                  </a>
+                  </button>
                   <p className="mt-1 text-xs text-muted-foreground text-center">患者背景（N=1439）</p>
                 </div>
                 <div>
-                  <a
-                    href="/images/research-intro/svr12-analysis.png"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block cursor-zoom-in hover:opacity-90 transition-opacity"
+                  <button
+                    onClick={() => setModalImage({ src: "/images/research-intro/svr12-analysis.png", alt: "SVR12達成率" })}
+                    className="block w-full cursor-zoom-in hover:opacity-90 transition-opacity"
                   >
                     <img
                       src="/images/research-intro/svr12-analysis.png"
                       alt="SVR12 analysis"
                       className="w-full h-auto rounded-lg border border-border"
                     />
-                  </a>
+                  </button>
                   <p className="mt-1 text-xs text-muted-foreground text-center">SVR12達成率</p>
                 </div>
                 <div>
-                  <a
-                    href="/images/research-intro/non-svr12-factors.png"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block cursor-zoom-in hover:opacity-90 transition-opacity"
+                  <button
+                    onClick={() => setModalImage({ src: "/images/research-intro/non-svr12-factors.png", alt: "non-SVR12関連因子の解析" })}
+                    className="block w-full cursor-zoom-in hover:opacity-90 transition-opacity"
                   >
                     <img
                       src="/images/research-intro/non-svr12-factors.png"
                       alt="Analyses of factors associated with non-SVR12"
                       className="w-full h-auto rounded-lg border border-border"
                     />
-                  </a>
+                  </button>
                   <p className="mt-1 text-xs text-muted-foreground text-center">non-SVR12関連因子の解析</p>
                 </div>
               </div>
@@ -420,7 +444,7 @@ function ClinicalLiver() {
               </ul>
             </div>
 
-            {/* 造影��音波による膵腫瘍、胆嚢病変の���別診断 */}
+            {/* 造影超音波による膵腫瘍、胆嚢病変の鑑別診断 */}
             <div className="bg-off-white rounded-lg p-4">
               <span className="text-text-sub text-sm">造影超音波による膵腫瘍、胆嚢病変の鑑別診断</span>
               <span className="ml-2 text-xs">
@@ -475,7 +499,7 @@ function ClinicalLiver() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-teal">⑤</span>
-              <span>体幹部定位放射���治療とラジオ波熱凝固療法の局所再発率の比較</span>
+              <span>体幹部定位放射線治療とラジオ波熱凝固療法の局所再発率の比較</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-teal">⑥</span>
@@ -534,7 +558,7 @@ function ClinicalBiliary() {
               rel="noopener noreferrer"
               className="text-emerald-600 underline hover:text-emerald-500 text-sm font-medium"
             >
-              進行胆道����を対象としたゲムシタビン+シスプラチン併用療法（GC療法）とゲムシタビン+S-1併用療法（GS療法）の第III相比較試験（JCOG1113）の附随研究
+              進行胆道癌を対象としたゲムシタビン+シスプラチン併用療法（GC療法）とゲムシタビン+S-1併用療法（GS療法）の第III相比較試験（JCOG1113）の附随研究
             </a>
             <p className="text-sm leading-[1.8] text-text-sub mt-2">
               良悪性胆管狭窄に対する胆管内埋め込み型プラスチックステントの有用性と安全性についての多施設共同前向き研究
