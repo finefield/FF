@@ -8,7 +8,7 @@ import { NewsSection } from "@/components/home/news-section"
 
 export default function HomePage() {
   return (
-    <>
+    <main>
       <HeroSection />
       <StatsSection />
       <RecruitFocusSection />
@@ -16,6 +16,6 @@ export default function HomePage() {
       <EventSection />
       <ProfessorSection />
       <NewsSection />
-    </>
+    </main>
   )
 }
