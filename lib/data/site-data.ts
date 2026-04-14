@@ -40,7 +40,7 @@ export const navItems = [
   },
   {
     label: "診療のご案内",
-    href: "/clinical",
+    href: "/research",
   },
   {
     label: "お知らせ",
@@ -61,6 +61,8 @@ export const stats = [
 ]
 
 export const newsItems = [
+  { id: "2026-04-14-seminar-2", date: "2026.04.14", category: "説明会", title: "2026年度 第2回教室説明会のお知らせ", href: "/recruit/visit" },
+  { id: "2026-03-23-michibata-stomal", date: "2026.03.23", category: "論文", title: "道端 信貴先生（横須賀市立市民病院）の論文が掲載されました", href: "/news/2026-03-23-michibata-stomal" },
   { id: "2026-03-08-ikeda-locc", date: "2026.03.08", category: "論文", title: "池田 良輔先生（附属病院・助教）の論文が掲載されました", href: "/news/2026-03-08-ikeda-locc" },
   { id: "2026-03-03-doba", date: "2026.03.03", category: "論文", title: "道端 信貴先生（横須賀市立市民病院）の論文が掲載されました", href: "/news/2026-03-03-doba" },
   { id: "2026-02-15-miwa-double-lumen", date: "2026.02.15", category: "論文", title: "三輪 治生先生（センター病院・講師）の論文が掲載されました", href: "/news/2026-02-15-miwa-double-lumen" },
