@@ -1015,7 +1015,7 @@ function BasicGI() {
 
           {/* 研究2 */}
           <div className="bg-off-white rounded-lg p-4">
-            <h5 className="font-medium text-sm text-navy mb-3">早期胃癌におけるアミノ酸代謝変���メカニズムの解明に関する研究</h5>
+            <h5 className="font-medium text-sm text-navy mb-3">早期胃癌におけるアミノ酸代謝変動メカニズムの解明に関する研究</h5>
             <p className="text-sm text-text-sub">
               癌細胞は正常細胞と異なる代謝プロファイルを持つことが知られています。早期胃癌におけるアミノ酸代謝の変動を解析し、新規診断マーカーや治療標的の同定を目指しています。
             </p>
