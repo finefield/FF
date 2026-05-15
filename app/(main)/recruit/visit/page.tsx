@@ -409,7 +409,7 @@ export default function VisitPage() {
                 </div>
               </div>
               <h3 className="mt-5 font-serif text-xl font-bold text-foreground">
-                第3回 教室オンライン相談会
+                第4回 教室オンライン相談会
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 こちらは説明会よりは小規模で開催させていただいており、毎月開催しております。
@@ -421,7 +421,7 @@ export default function VisitPage() {
                   <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-[#2A8B8B]" />
                   <div>
                     <p className="text-sm font-semibold text-foreground">開催日時</p>
-                    <p className="text-sm text-muted-foreground">2026年4月22日（火）19:00〜</p>
+                    <p className="text-sm text-muted-foreground">2026年5月28日（火）19:00〜</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
