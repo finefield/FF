@@ -4,8 +4,8 @@ export const siteConfig = {
   nameEn: "Yokohama City University · Gastroenterology",
   university: "横浜市立大学 医学部",
   address: "〒236-0004 神奈川県横浜市金沢区福浦3-9",
-  phone: "045-787-2640",
-  fax: "045-784-3546",
+  phone: "045-787-2326",
+  fax: "045-787-2327",
   email: "gastro@yokohama-cu.ac.jp",
 }
 
